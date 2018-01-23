@@ -1,0 +1,32 @@
+<%= form_with(model: coltura, local: true) do |form| %>
+  <% if coltura.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(coltura.errors.count, "error") %> prohibited this coltura from being saved:</h2>
+
+      <ul>
+      <% coltura.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nome %>
+    <%= form.text_field :nome, id: :coltura_nome %>
+  </div>
+
+  <div class="field">
+    <%= form.label :estensione_ha %>
+    <%= form.text_field :estensione_ha, id: :coltura_estensione_ha %>
+  </div>
+
+  <div class="field">
+    <%= form.label :id_cat %>
+    <%= form.number_field :id_cat, id: :coltura_id_cat %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

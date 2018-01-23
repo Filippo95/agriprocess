@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @cat_colture.nome %>
+</p>
+
+<p>
+  <strong>Descrizione:</strong>
+  <%= @cat_colture.descrizione %>
+</p>
+
+<p>
+  <strong>Id parent:</strong>
+  <%= @cat_colture.id_parent %>
+</p>
+
+<%= link_to 'Edit', edit_cat_colture_path(@cat_colture) %> |
+<%= link_to 'Back', cat_coltures_path %>

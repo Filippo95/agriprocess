@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @coltura.nome %>
+</p>
+
+<p>
+  <strong>Estensione ha:</strong>
+  <%= @coltura.estensione_ha %>
+</p>
+
+<p>
+  <strong>Id cat:</strong>
+  <%= @coltura.id_cat %>
+</p>
+
+<%= link_to 'Edit', edit_coltura_path(@coltura) %> |
+<%= link_to 'Back', colturas_path %>

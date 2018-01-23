@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Operazione Trattamentos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id operazione</th>
+      <th>Id trattamento</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @operazione_trattamentos.each do |operazione_trattamento| %>
+      <tr>
+        <td><%= operazione_trattamento.id_operazione %></td>
+        <td><%= operazione_trattamento.id_trattamento %></td>
+        <td><%= link_to 'Show', operazione_trattamento %></td>
+        <td><%= link_to 'Edit', edit_operazione_trattamento_path(operazione_trattamento) %></td>
+        <td><%= link_to 'Destroy', operazione_trattamento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Operazione Trattamento', new_operazione_trattamento_path %>

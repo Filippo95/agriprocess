@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @operazione.nome %>
+</p>
+
+<p>
+  <strong>Descrizione:</strong>
+  <%= @operazione.descrizione %>
+</p>
+
+<p>
+  <strong>Per ha:</strong>
+  <%= @operazione.per_ha %>
+</p>
+
+<%= link_to 'Edit', edit_operazione_path(@operazione) %> |
+<%= link_to 'Back', operaziones_path %>

@@ -1,0 +1,2 @@
+module AttrezzosHelper
+end

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  estensione_ha: 1.5
+  id_cat: 1
+
+two:
+  nome: MyString
+  estensione_ha: 1.5
+  id_cat: 1

@@ -1,0 +1,37 @@
+<%= form_with(model: prodotto_trattamento, local: true) do |form| %>
+  <% if prodotto_trattamento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(prodotto_trattamento.errors.count, "error") %> prohibited this prodotto_trattamento from being saved:</h2>
+
+      <ul>
+      <% prodotto_trattamento.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :id_prodotto %>
+    <%= form.number_field :id_prodotto, id: :prodotto_trattamento_id_prodotto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :id_trattamento %>
+    <%= form.number_field :id_trattamento, id: :prodotto_trattamento_id_trattamento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dose_ha %>
+    <%= form.text_field :dose_ha, id: :prodotto_trattamento_dose_ha %>
+  </div>
+
+  <div class="field">
+    <%= form.label :avvesit %>
+    <%= form.text_area :avvesit, id: :prodotto_trattamento_avvesit %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+class CatProdotto < ApplicationRecord
+end

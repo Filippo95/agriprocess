@@ -1,0 +1,74 @@
+class TrattamentosController < ApplicationController
+  before_action :set_trattamento, only: [:show, :edit, :update, :destroy]
+
+  # GET /trattamentos
+  # GET /trattamentos.json
+  def index
+    @trattamentos = Trattamento.all
+  end
+
+  # GET /trattamentos/1
+  # GET /trattamentos/1.json
+  def show
+  end
+
+  # GET /trattamentos/new
+  def new
+    @trattamento = Trattamento.new
+  end
+
+  # GET /trattamentos/1/edit
+  def edit
+  end
+
+  # POST /trattamentos
+  # POST /trattamentos.json
+  def create
+    @trattamento = Trattamento.new(trattamento_params)
+
+    respond_to do |format|
+      if @trattamento.save
+        format.html { redirect_to @trattamento, notice: 'Trattamento was successfully created.' }
+        format.json { render :show, status: :created, location: @trattamento }
+      else
+        format.html { render :new }
+        format.json { render json: @trattamento.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /trattamentos/1
+  # PATCH/PUT /trattamentos/1.json
+  def update
+    respond_to do |format|
+      if @trattamento.update(trattamento_params)
+        format.html { redirect_to @trattamento, notice: 'Trattamento was successfully updated.' }
+        format.json { render :show, status: :ok, location: @trattamento }
+      else
+        format.html { render :edit }
+        format.json { render json: @trattamento.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /trattamentos/1
+  # DELETE /trattamentos/1.json
+  def destroy
+    @trattamento.destroy
+    respond_to do |format|
+      format.html { redirect_to trattamentos_url, notice: 'Trattamento was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_trattamento
+      @trattamento = Trattamento.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def trattamento_params
+      params.require(:trattamento).permit(:data, :id_coltura, :id_attrezzo, :avversit, :semina, :trapianto, :fioritura, :raccolta)
+    end
+end

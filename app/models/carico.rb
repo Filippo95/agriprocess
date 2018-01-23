@@ -1,0 +1,2 @@
+class Carico < ApplicationRecord
+end

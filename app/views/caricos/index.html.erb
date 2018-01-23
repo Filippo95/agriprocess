@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Caricos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id prodotto</th>
+      <th>Quantit</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @caricos.each do |carico| %>
+      <tr>
+        <td><%= carico.id_prodotto %></td>
+        <td><%= carico.quantit %></td>
+        <td><%= link_to 'Show', carico %></td>
+        <td><%= link_to 'Edit', edit_carico_path(carico) %></td>
+        <td><%= link_to 'Destroy', carico, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Carico', new_carico_path %>

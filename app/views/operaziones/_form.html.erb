@@ -1,0 +1,32 @@
+<%= form_with(model: operazione, local: true) do |form| %>
+  <% if operazione.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(operazione.errors.count, "error") %> prohibited this operazione from being saved:</h2>
+
+      <ul>
+      <% operazione.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nome %>
+    <%= form.text_field :nome, id: :operazione_nome %>
+  </div>
+
+  <div class="field">
+    <%= form.label :descrizione %>
+    <%= form.text_area :descrizione, id: :operazione_descrizione %>
+  </div>
+
+  <div class="field">
+    <%= form.label :per_ha %>
+    <%= form.text_field :per_ha, id: :operazione_per_ha %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

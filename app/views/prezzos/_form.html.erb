@@ -1,0 +1,37 @@
+<%= form_with(model: prezzo, local: true) do |form| %>
+  <% if prezzo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(prezzo.errors.count, "error") %> prohibited this prezzo from being saved:</h2>
+
+      <ul>
+      <% prezzo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :data %>
+    <%= form.date_select :data, id: :prezzo_data %>
+  </div>
+
+  <div class="field">
+    <%= form.label :id_prodotto %>
+    <%= form.number_field :id_prodotto, id: :prezzo_id_prodotto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :prezzo_fattura %>
+    <%= form.text_field :prezzo_fattura, id: :prezzo_prezzo_fattura %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sconto %>
+    <%= form.text_field :sconto, id: :prezzo_sconto %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

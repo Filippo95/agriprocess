@@ -1,0 +1,173 @@
+<script  type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+<%= form_with(model: trattamento, local: true) do |form| %>
+  <% if trattamento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(trattamento.errors.count, "error") %> prohibited this trattamento from being saved:</h2>
+
+      <ul>
+      <% trattamento.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :data %>
+    <%= form.date_select :data, id: :trattamento_data %>
+  </div>
+
+
+  <div class="field">
+     <%= form.label :id_coltura %> <input type="text" id="nomecoltura" disabled="disabled">
+     <%= form.hidden_field :id_coltura, id: :trattamento_id_coltura%>
+     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+     Seleziona Coltura
+   </button>
+   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Seleziona Coltura</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <script>
+       function ColturasDispose( id, nome){
+         $('#trattamento_id_coltura').val(id);
+ console.log(id)
+           $('#nomecoltura').val(nome);
+       }
+                 $(document).ready(function () {
+
+                 $.ajax({
+                     url: "/colturas.json",
+                     dataType: "json",
+                     timeout: 800000,
+                     cache: true}).done(function (o) {
+                     for (var i = 0; i < o.length; i++)
+                     {
+                         $('#colturebody').append('<tr><td>' + o[i].nome + '</td><td>' + o[i].estensione_ha + '</td><td>  <button type="button" data-dismiss="modal" class="btn btn-primary" onClick="ColturasDispose(\''+o[i].id+'\',\''+o[i].nome+'\')">Seleziona</button></td></tr> ');
+                     }
+                     $('#colture').DataTable();
+                 });
+             });
+         </script>
+       <div class="modal-body">
+         <table id="colture" class="display" cellspacing="0" width="100%">
+         <thead>
+             <tr>
+                 <th>Nome</th>
+                 <th>Estensione Ha</th>
+                 <th></th>
+
+             </tr>
+         </thead>
+
+         <tbody id="colturebody">
+
+         </tbody>
+     </table>
+       </div>
+
+     </div>
+   </div>
+ </div>
+   </div>
+
+
+  <div class="field">
+      <%= form.label :id_attrezzo %><input type="text" id="nomeattrezzo" disabled="disabled">
+      <%= form.hidden_field :id_attrezzo, id: :trattamento_id_attrezzo %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalA">
+          Seleziona Attrezzo
+        </button>
+        <div class="modal fade" id="exampleModalA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Seleziona Attrezzo</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <script>
+            function AttrezzosDispose( id, nome){
+              $('#trattamento_id_attrezzo').val(id);
+      console.log(id)
+                $('#nomeattrezzo').val(nome);
+            }
+                      $(document).ready(function () {
+
+                      $.ajax({
+                          url: "/attrezzos.json",
+                          dataType: "json",
+                          timeout: 800000,
+                          cache: true}).done(function (o) {
+                          for (var i = 0; i < o.length; i++)
+                          {
+                              $('#attrezzobody').append('<tr><td>' + o[i].nome + '</td><td>' + o[i].descrizione + '</td><td>' + o[i].costo_carburante + '</td><td>' + o[i].deperimento + '</td><td>  <button type="button" data-dismiss="modal" class="btn btn-primary" onClick="AttrezzosDispose(\''+o[i].id+'\',\''+o[i].nome+'\')">Seleziona</button></td></tr> ');
+                          }
+                          $('#attrezzo').DataTable();
+                      });
+                  });
+              </script>
+            <div class="modal-body">
+              <table id="attrezzo" class="display" cellspacing="0" width="100%">
+              <thead>
+                  <tr>
+                      <th>Nome</th>
+                      <th>Descrizione</th>
+
+                      <th>Costo carburante</th>
+                      <th>Deperimento</th>
+                      <th></th>
+
+                  </tr>
+              </thead>
+
+              <tbody id="attrezzobody">
+
+              </tbody>
+          </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="field">
+    <%= form.label :avversit %>
+    <%= form.text_area :avversit, id: :trattamento_avversit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :semina %>
+    <%= form.check_box :semina, id: :trattamento_semina %>
+  </div>
+
+  <div class="field">
+    <%= form.label :trapianto %>
+    <%= form.check_box :trapianto, id: :trattamento_trapianto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fioritura %>
+    <%= form.check_box :fioritura, id: :trattamento_fioritura %>
+  </div>
+
+  <div class="field">
+    <%= form.label :raccolta %>
+    <%= form.check_box :raccolta, id: :trattamento_raccolta %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+<% end %>

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Prezzos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>Id prodotto</th>
+      <th>Prezzo fattura</th>
+      <th>Sconto</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @prezzos.each do |prezzo| %>
+      <tr>
+        <td><%= prezzo.data %></td>
+        <td><%= prezzo.id_prodotto %></td>
+        <td><%= prezzo.prezzo_fattura %></td>
+        <td><%= prezzo.sconto %></td>
+        <td><%= link_to 'Show', prezzo %></td>
+        <td><%= link_to 'Edit', edit_prezzo_path(prezzo) %></td>
+        <td><%= link_to 'Destroy', prezzo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Prezzo', new_prezzo_path %>

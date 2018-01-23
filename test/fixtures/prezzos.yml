@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  data: 2018-01-18
+  id_prodotto: 1
+  prezzo_fattura: 1.5
+  sconto: 1.5
+
+two:
+  data: 2018-01-18
+  id_prodotto: 1
+  prezzo_fattura: 1.5
+  sconto: 1.5

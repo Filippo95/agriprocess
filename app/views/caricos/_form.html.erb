@@ -1,0 +1,27 @@
+<%= form_with(model: carico, local: true) do |form| %>
+  <% if carico.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(carico.errors.count, "error") %> prohibited this carico from being saved:</h2>
+
+      <ul>
+      <% carico.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :id_prodotto %>
+    <%= form.number_field :id_prodotto, id: :carico_id_prodotto %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantit %>
+    <%= form.text_field :quantit, id: :carico_quantit %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @prezzo.data %>
+</p>
+
+<p>
+  <strong>Id prodotto:</strong>
+  <%= @prezzo.id_prodotto %>
+</p>
+
+<p>
+  <strong>Prezzo fattura:</strong>
+  <%= @prezzo.prezzo_fattura %>
+</p>
+
+<p>
+  <strong>Sconto:</strong>
+  <%= @prezzo.sconto %>
+</p>
+
+<%= link_to 'Edit', edit_prezzo_path(@prezzo) %> |
+<%= link_to 'Back', prezzos_path %>

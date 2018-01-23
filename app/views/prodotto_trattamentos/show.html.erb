@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id prodotto:</strong>
+  <%= @prodotto_trattamento.id_prodotto %>
+</p>
+
+<p>
+  <strong>Id trattamento:</strong>
+  <%= @prodotto_trattamento.id_trattamento %>
+</p>
+
+<p>
+  <strong>Dose ha:</strong>
+  <%= @prodotto_trattamento.dose_ha %>
+</p>
+
+<p>
+  <strong>Avvesit:</strong>
+  <%= @prodotto_trattamento.avvesit %>
+</p>
+
+<%= link_to 'Edit', edit_prodotto_trattamento_path(@prodotto_trattamento) %> |
+<%= link_to 'Back', prodotto_trattamentos_path %>

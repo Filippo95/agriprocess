@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_prodotto: 1
+  id_trattamento: 1
+  dose_ha: 1.5
+  avvesit: MyText
+
+two:
+  id_prodotto: 1
+  id_trattamento: 1
+  dose_ha: 1.5
+  avvesit: MyText

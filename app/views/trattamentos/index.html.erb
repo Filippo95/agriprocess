@@ -1,0 +1,155 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.css"/>
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.js"></script>
+
+<script src="libs/jspdf.debug.js"></script>
+<script src="libs/jspdf.plugin.autotable.js"></script>
+
+
+<script  type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+  <link rel="stylesheet" type="text/css" href="  https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
+
+<p id="notice"><%= notice %></p>
+
+<h1>Trattamenti</h1>
+
+
+<table id="table">
+  <thead>
+    <tr>
+
+        <th>ID</th>
+      <th>Data</th>
+      <th>Coltura</th>
+      <th>Attrezzo</th>
+        <th>Avversità</th>
+      <th>Fase</th>
+      <th>Prodotti</th>
+      <th>Operazioni</th>
+      <th ></th><th ></th><th ></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trattamentos.each do |trattamento| %>
+      <tr class="record" id="<%= trattamento.id%>">
+        <td id="ID"><%= trattamento.id%></td>
+        <td><%= Date.strptime('20120225', '%Y%m%d').strftime("%d/%m/%Y") %></td>
+        <td id="coltura"><%= trattamento.id_coltura %></td>
+        <td id="attrezzo"><%= trattamento.id_attrezzo %></td>
+        <td><%= trattamento.avversit %></td>
+        <td><%if trattamento.semina %>
+              Semina
+          <% elsif trattamento.trapianto %>
+          Trapianto
+          <% elsif trattamento.fioritura %>
+          Fioritura
+          <% elsif trattamento.raccolta %>
+          Raccolta
+          <%end%>
+
+        </td>
+        <td id="prodotti"></td>
+        <td id="operazioni"></td>
+        <td><%= link_to 'Visualizza', trattamento ,class: "btn btn-success" %></td>
+        <td><%= link_to 'Modifica', edit_trattamento_path(trattamento) ,class: "btn btn-warning" %></td>
+        <td><%= link_to 'Elimina', trattamento, method: :delete, data: { confirm: 'Sei sicuro di voler eliminare il trattamento?' },class: "btn btn-danger" %></td>  </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to 'Nuovo Trattamento', new_trattamento_path ,class: "btn btn-success" %>
+
+<script>
+$(document).ready(function () {
+
+  $("tr").each(function() {
+    console.log("faccio");
+          var trattamenti_operazioni=$.ajax({
+              url:"/operazione_trattamentos.json" ,
+              async: false,
+              dataType: 'json'
+          }).responseJSON;
+
+
+          var operazioni=$.ajax({
+              url:"/operaziones.json" ,
+              async: false,
+              dataType: 'json'
+          }).responseJSON;
+
+
+            for (var i = 0; i < trattamenti_operazioni.length; i++)
+            {
+
+              for (var k = 0; k < operazioni.length; k++)
+              {
+                if(trattamenti_operazioni[i].id_operazione==operazioni[k].id && trattamenti_operazioni[i].id_trattamento==$(this).find('#ID').text() )
+                {
+                $(this).find('#operazioni').append(' ' + operazioni[k].nome +', ');
+                }
+              }
+            }
+            var trattamenti_prodotti=$.ajax({
+                url:"/prodotto_trattamentos.json" ,
+                async: false,
+                dataType: 'json'
+            }).responseJSON;
+
+
+            var prodotti=$.ajax({
+                url:"/prodottos.json" ,
+                async: false,
+                dataType: 'json'
+            }).responseJSON;
+
+
+              for (var i = 0; i < trattamenti_prodotti.length; i++)
+              {
+                for (var k = 0; k < prodotti.length; k++)
+                {
+                  if(prodotti[k].id==trattamenti_prodotti[i].id_prodotto && trattamenti_prodotti[i].id_trattamento==$(this).find('#ID').text())
+                  {
+                    $(this).find(' #prodotti').append(' ' + prodotti[k].nome +', ');
+                  }
+                }
+              }
+
+
+                var id=$(this);
+              $.ajax({
+                  url: "/colturas.json",
+                  dataType: "json",
+                  timeout: 800000,
+                  cache: true}).done(function (o) {
+                    for (var i = 0; i < o.length; i++)
+                    {
+                      if(o[i].id==  id.find(' #coltura').text())
+                      {
+                         id.find(' #coltura').text(o[i].nome)
+                      }
+                    }
+                  });
+
+                  var id=$(this);
+                  $.ajax({
+                      url: "/attrezzos.json",
+                      dataType: "json",
+                      timeout: 800000,
+                      cache: true}).done(function (o) {
+                        for (var i = 0; i < o.length; i++)
+                        {
+                          if(o[i].id==  id.find(" #attrezzo").text())
+                          {
+                             id.find(' #attrezzo').text(o[i].nome)
+                          }
+                        }
+                      });
+          });
+    $('#table').DataTable();
+} );
+</script>

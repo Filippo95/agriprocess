@@ -1,0 +1,37 @@
+<%= form_with(model: attrezzo, local: true) do |form| %>
+  <% if attrezzo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(attrezzo.errors.count, "error") %> prohibited this attrezzo from being saved:</h2>
+
+      <ul>
+      <% attrezzo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nome %>
+    <%= form.text_field :nome, id: :attrezzo_nome %>
+  </div>
+
+  <div class="field">
+    <%= form.label :descrizione %>
+    <%= form.text_area :descrizione, id: :attrezzo_descrizione %>
+  </div>
+
+  <div class="field">
+    <%= form.label :costo_carburante %>
+    <%= form.text_field :costo_carburante, id: :attrezzo_costo_carburante %>
+  </div>
+
+  <div class="field">
+    <%= form.label :deperimento %>
+    <%= form.text_field :deperimento, id: :attrezzo_deperimento %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+class Attrezzo < ApplicationRecord
+end

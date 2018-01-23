@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Cat Coltures</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Descrizione</th>
+      <th>Id parent</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cat_coltures.each do |cat_colture| %>
+      <tr>
+        <td><%= cat_colture.nome %></td>
+        <td><%= cat_colture.descrizione %></td>
+        <td><%= cat_colture.id_parent %></td>
+        <td><%= link_to 'Show', cat_colture %></td>
+        <td><%= link_to 'Edit', edit_cat_colture_path(cat_colture) %></td>
+        <td><%= link_to 'Destroy', cat_colture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cat Colture', new_cat_colture_path %>

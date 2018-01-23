@@ -1,0 +1,2 @@
+module CatColturesHelper
+end

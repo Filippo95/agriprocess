@@ -1,0 +1,2 @@
+class CatColture < ApplicationRecord
+end

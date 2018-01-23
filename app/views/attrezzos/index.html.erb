@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Attrezzos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Descrizione</th>
+      <th>Costo carburante</th>
+      <th>Deperimento</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @attrezzos.each do |attrezzo| %>
+      <tr>
+        <td><%= attrezzo.nome %></td>
+        <td><%= attrezzo.descrizione %></td>
+        <td><%= attrezzo.costo_carburante %></td>
+        <td><%= attrezzo.deperimento %></td>
+        <td><%= link_to 'Show', attrezzo %></td>
+        <td><%= link_to 'Edit', edit_attrezzo_path(attrezzo) %></td>
+        <td><%= link_to 'Destroy', attrezzo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Attrezzo', new_attrezzo_path %>

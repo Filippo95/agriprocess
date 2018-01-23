@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id prodotto:</strong>
+  <%= @carico.id_prodotto %>
+</p>
+
+<p>
+  <strong>Quantit:</strong>
+  <%= @carico.quantit %>
+</p>
+
+<%= link_to 'Edit', edit_carico_path(@carico) %> |
+<%= link_to 'Back', caricos_path %>

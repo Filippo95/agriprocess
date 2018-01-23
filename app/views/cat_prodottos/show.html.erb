@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @cat_prodotto.nome %>
+</p>
+
+<p>
+  <strong>Descrizione:</strong>
+  <%= @cat_prodotto.descrizione %>
+</p>
+
+<p>
+  <strong>Id prarent:</strong>
+  <%= @cat_prodotto.id_prarent %>
+</p>
+
+<%= link_to 'Edit', edit_cat_prodotto_path(@cat_prodotto) %> |
+<%= link_to 'Back', cat_prodottos_path %>

@@ -1,0 +1,2 @@
+class Coltura < ApplicationRecord
+end

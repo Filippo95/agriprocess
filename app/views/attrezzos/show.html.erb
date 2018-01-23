@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @attrezzo.nome %>
+</p>
+
+<p>
+  <strong>Descrizione:</strong>
+  <%= @attrezzo.descrizione %>
+</p>
+
+<p>
+  <strong>Costo carburante:</strong>
+  <%= @attrezzo.costo_carburante %>
+</p>
+
+<p>
+  <strong>Deperimento:</strong>
+  <%= @attrezzo.deperimento %>
+</p>
+
+<%= link_to 'Edit', edit_attrezzo_path(@attrezzo) %> |
+<%= link_to 'Back', attrezzos_path %>

@@ -1,0 +1,399 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.css"/>
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.js"></script>
+
+<script src="libs/jspdf.debug.js"></script>
+<script src="libs/jspdf.plugin.autotable.js"></script>
+
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+  <link rel="stylesheet" type="text/css" href="  https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
+
+
+<p id="notice"><%= notice %></p>
+<h1>Dettagli Trattamento </h1>
+<%= link_to 'Indietro', trattamentos_path,class: "btn btn-info" %><t>
+<%= link_to 'Modifica Trattamento', edit_trattamento_path(@trattamento),class: "btn btn-danger" %>
+
+<br>
+<br>
+
+<script>
+$(document).ready(function () {
+
+
+$.ajax({
+    url: "/colturas.json",
+    dataType: "json",
+    timeout: 800000,
+    cache: true}).done(function (o) {
+      for (var i = 0; i < o.length; i++)
+      {
+        if(o[i].id==  $("#coltura").text())
+        {
+           $("#coltura"). text(o[i].nome)
+        }
+      }
+    });
+
+
+            $.ajax({
+                url: "/attrezzos.json",
+                dataType: "json",
+                timeout: 800000,
+                cache: true}).done(function (o) {
+                  for (var i = 0; i < o.length; i++)
+                  {
+                    if(o[i].id==  $("#attrezzo").text())
+                    {
+                       $("#attrezzo"). text(o[i].nome)
+                    }
+                  }
+                });
+
+
+
+} );
+</script>
+<p>
+  <strong>Data:</strong>
+  <%= @trattamento.data %>
+</p>
+
+<input type="hidden" id="trattamento_id" value="<%= @trattamento.id %> ">
+
+<h3>Coltura:</h3>
+<p id="coltura">
+  <%= @trattamento.id_coltura %>
+</p>
+
+
+<p>
+  <h3>Attrezzo:</h3>
+</p>
+
+<p id="attrezzo">
+  <%= @trattamento.id_attrezzo %>
+</p>
+
+<p>
+  <strong>Avversità:</strong>
+  <%= @trattamento.avversit %>
+</p>
+
+<p>
+  <strong>Semina:</strong>
+  <%= @trattamento.semina %>
+</p>
+
+<p>
+  <strong>Trapianto:</strong>
+  <%= @trattamento.trapianto %>
+</p>
+
+<p>
+  <strong>Fioritura:</strong>
+  <%= @trattamento.fioritura %>
+</p>
+
+<p>
+  <strong>Raccolta:</strong>
+  <%= @trattamento.raccolta %>
+</p>
+
+<h1>Operazioni fatte durante il trattamento</h1>
+<table id="tableOperazioni">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Descrizione</th>
+      <th>Costo per Ha</th>
+
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody id="tableOperazioniBody">
+
+  </tbody>
+</table>
+<script>
+$(document).ready(function () {
+var trattamenti_operazioni=$.ajax({
+    url:"/operazione_trattamentos.json" ,
+    async: false,
+    dataType: 'json'
+}).responseJSON;
+
+
+var operazioni=$.ajax({
+    url:"/operaziones.json" ,
+    async: false,
+    dataType: 'json'
+}).responseJSON;
+
+
+  for (var i = 0; i < trattamenti_operazioni.length; i++)
+  {
+    for (var k = 0; k < operazioni.length; k++)
+    {
+      if(trattamenti_operazioni[i].id_operazione==operazioni[k].id && trattamenti_operazioni[i].id_trattamento=="<%= @trattamento.id %>" )
+      {
+        $('#tableOperazioniBody').append('<tr><td>' + operazioni[k].nome + '</td><td>' + operazioni[k].descrizione + '</td><td>' + operazioni[k].per_ha + '</td><td>  <a data-confirm="Sei sicuro?" class ="btn btn-danger" rel="nofollow" data-method="delete" href="/operazione_trattamentos/'+trattamenti_operazioni[i].id+'">Elimina</a> </td></tr> ');
+      }
+    }
+  }
+
+});
+</script>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalO">
+        Aggiungi Operazione
+      </button>
+      <div class="modal fade" id="exampleModalO" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Seleziona Operazione</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <script>
+          function OperazionesDispose( id, nome){
+            $("#operazione_trattamento_id_operazione").val(id);
+            $("#trattametoOperazioneForm").submit();
+          }
+                    $(document).ready(function () {
+
+                    $.ajax({
+                        url: "/operaziones.json",
+                        dataType: "json",
+                        timeout: 800000,
+                        cache: true}).done(function (o) {
+                        for (var i = 0; i < o.length; i++)
+                        {
+                            $('#operazionebody').append('<tr><td>' + o[i].nome + '</td><td>' + o[i].per_ha + '</td><td>  <button type="button" data-dismiss="modal" class="btn btn-primary" onClick="OperazionesDispose(\''+o[i].id+'\',\''+o[i].nome+'\')">Seleziona</button></td></tr> ');
+                        }
+                        $('#operazione').DataTable();
+                    });
+                });
+      </script>
+
+          <div class="modal-body">
+            <table id="operazione" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+
+
+                    <th>costo per ha</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+
+            <tbody id="operazionebody">
+
+            </tbody>
+        </table>
+
+<form action="/operazione_trattamentos" accept-charset="UTF-8" method="post" id="trattametoOperazioneForm">
+  <input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="N4UrLLKhg2QY2kQ0c0vlXoS70qUzmY6nxdqx4PZFc8CJuasS6oyNuyIH7LE+yoGE4NFQlCrUFGWUaIDdtIheZw==" type="hidden">
+
+  <div class="field">
+    <input id="operazione_trattamento_id_operazione" name="operazione_trattamento[id_operazione]" type="hidden" value="">
+  </div>
+
+  <div class="field">
+    <input id="operazione_trattamento_id_trattamento" name="operazione_trattamento[id_trattamento]" type="hidden" value="<%= @trattamento.id %> ">
+  </div>
+
+  <div class="actions">
+    <input name="commit" value="Create Operazione trattamento" data-disable-with="Create Operazione trattamento" type="submit">
+  </div>
+</form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+<br>
+<br>
+<h1>Prodotti utilizzati durante il trattamento </h1>
+<table id="tableProdotti">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Avversità Prodotto</th>
+
+      <th>Dose per ettaro</th>
+      <th>Avversità combattuta</th>
+<th></th>
+    </tr>
+  </thead>
+
+  <tbody id="tableProdottiBody">
+
+  </tbody>
+</table>
+<script>
+$(document).ready(function () {
+var trattamenti_prodotti=$.ajax({
+    url:"/prodotto_trattamentos.json" ,
+    async: false,
+    dataType: 'json'
+}).responseJSON;
+
+
+var prodotti=$.ajax({
+    url:"/prodottos.json" ,
+    async: false,
+    dataType: 'json'
+}).responseJSON;
+
+
+  for (var i = 0; i < trattamenti_prodotti.length; i++)
+  {
+    for (var k = 0; k < prodotti.length; k++)
+    {
+      if(prodotti[k].id==trattamenti_prodotti[i].id_prodotto && trattamenti_prodotti[i].id_trattamento=="<%= @trattamento.id %> ")
+      {
+        $('#tableProdottiBody').append('<tr><td>' + prodotti[k].nome + '</td><td>' + prodotti[k].avversit + '</td><td>' + trattamenti_prodotti[i].dose_ha + '</td><td>' + trattamenti_prodotti[i].avvesit + '</td><td>    <a data-confirm="Sei sicuro?" class ="btn btn-danger"  rel="nofollow" data-method="delete" href="/prodotto_trattamentos/' + trattamenti_prodotti[i].id + '">Elimina</a></td></tr> ');
+      }
+    }
+  }
+
+$('#tableProdotti').DataTable();
+});
+</script>
+     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalP">
+       Aggiungi Prodotto
+     </button>
+
+     <div class="modal fade" id="exampleModalP" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="exampleModalLabel">Seleziona Prodotto</h5>
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <script>
+         function ProdottosDispose( id, nome){
+             console.log(id);
+             $('#nomeprodotto').val(nome);
+             $('#exampleModalP').on('hidden');
+
+             $('#prodotto_trattamento_id_prodotto').val(id);
+             $('#prodotto_trattamento_id_trattamento').val($('#trattamento_id').val());
+             $('#formtrattamentoprodotto').modal('show');
+             console.log("finito")
+         }
+                   $(document).ready(function () {
+
+                   $.ajax({
+                       url: "/prodottos.json",
+                       dataType: "json",
+                       timeout: 800000,
+                       cache: true}).done(function (o) {
+                       for (var i = 0; i < o.length; i++)
+                       {
+                           $('#prodottobody').append('<tr><td>' + o[i].nome + '</td><td>' + o[i].avversit + '</td><td>  <button type="button"  class="btn btn-primary" onClick="ProdottosDispose(\''+o[i].id+'\',\''+o[i].nome+'\')">Seleziona</button></td></tr> ');
+                       }
+                       $('#prodotto').DataTable();
+                   });
+               });
+           </script>
+         <div class="modal-body">
+           <table id="prodotto" class="display" cellspacing="0" width="100%">
+           <thead>
+               <tr>
+                   <th>Nome</th>
+                   <th>avversità</th>
+
+                   <th></th>
+
+               </tr>
+           </thead>
+
+           <tbody id="prodottobody">
+
+           </tbody>
+       </table>
+         </div>
+
+       </div>
+     </div>
+   </div>
+
+<br>
+<br>
+
+<script>
+$(document).ready(function () {
+    $('#tableProdotti').DataTable();
+    $('#tableOperazioni').DataTable();
+} );
+</script>
+<div class="modal fade" id="formtrattamentoprodotto" role="dialog">
+<div class="modal-dialog">
+
+<!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+ <h4 class="modal-title">Ancora un po' di dati....</h4>
+</div>
+<div class="modal-body">
+
+<form action="/prodotto_trattamentos" accept-charset="UTF-8" method="post" id="prodottoform">
+  <input name="utf8" value="✓" type="hidden">
+  <input name="authenticity_token" value="8KeWBeUCNCA25ULIZST2Zvr3WBz9Da4OVXGC21N2bxXL/Kd1HVikLq4DRqJEEOr2ytWScwn8TSjMt1b4Ye/tZA==" type="hidden">
+
+  <div class="field">
+    <input id="prodotto_trattamento_id_prodotto" name="prodotto_trattamento[id_prodotto]" type="hidden" value="">
+  </div>
+
+  <div class="field">
+    <input id="prodotto_trattamento_id_trattamento" name="prodotto_trattamento[id_trattamento]" type="hidden" value="" >
+  </div>
+
+  <div class="field">
+    <label for="prodotto_trattamento_dose_ha">Dose per Ha</label>
+    <input id="prodotto_trattamento_dose_ha" name="prodotto_trattamento[dose_ha]" type="text">
+  </div>
+
+  <div class="field">
+    <label for="prodotto_trattamento_avvesit">Avvesità combattuta</label>
+    <textarea id="prodotto_trattamento_avvesit" name="prodotto_trattamento[avvesit]"></textarea>
+  </div>
+
+  <div class="actions">
+    <input id="submitprodotto" name="commit"  value="Create Prodotto trattamento" data-disable-with="Create Prodotto trattamento" type="submit">
+  </div>
+
+   <button type="button" class="btn btn-primary" data-dismiss="modal">Indietro</button>
+  <script>
+    $("#prodottoform").submit(function( event ) {
+      alert("Prodotto Registrato!");
+      $("#formtrattamentoprodotto").modal('hide');
+
+      $("#exampleModalP").modal('hide');console.log("ora faccio il reload");
+
+
+});
+
+</script>
+</form>
+
+</div>
+
+</div>
+
+</div>
+</div>
