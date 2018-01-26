@@ -11,9 +11,29 @@
 </p>
 
 <p>
-  <strong>Id cat:</strong>
-  <%= @coltura.id_cat %>
+  <strong>Categoria:</strong>
+  <span id="<%= @coltura.id_cat %>"></span>
 </p>
 
-<%= link_to 'Edit', edit_coltura_path(@coltura) %> |
-<%= link_to 'Back', colturas_path %>
+<%= link_to 'Modifica', edit_coltura_path(@coltura), class:"btn btn-warning" %> |
+<%= link_to 'Indietro', colturas_path , class:"btn btn-info"%>
+<script>
+$(document).ready(function () {
+
+    var categorie=$.ajax({
+        url:"/cat_coltures.json" ,
+        async: false,
+        dataType: 'json'
+    }).responseJSON;
+
+
+    for (var i = 0; i < categorie.length; i++)
+    {
+          $('#'+categorie[i].id).text(categorie[i].nome);
+          console.log("ho settato il parente di "+categorie[i].nome+" ed è: "+categorie[i].nome)
+    }
+
+
+} );
+
+</script>

@@ -1,26 +1,34 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.js"></script>
+<script src="libs/jspdf.debug.js"></script>
+<script src="libs/jspdf.plugin.autotable.js"></script>
+<script  type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="  https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
 <p id="notice"><%= notice %></p>
 
-<h1>Cat Coltures</h1>
+<h1>Categorie Colture</h1>
 
-<table>
+<table id="table">
   <thead>
     <tr>
       <th>Nome</th>
       <th>Descrizione</th>
-      <th>Id parent</th>
-      <th colspan="3"></th>
+      <th>Padre</th>
+      <th></th><th></th><th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @cat_coltures.each do |cat_colture| %>
-      <tr>
+      <tr >
         <td><%= cat_colture.nome %></td>
         <td><%= cat_colture.descrizione %></td>
-        <td><%= cat_colture.id_parent %></td>
-        <td><%= link_to 'Show', cat_colture %></td>
-        <td><%= link_to 'Edit', edit_cat_colture_path(cat_colture) %></td>
-        <td><%= link_to 'Destroy', cat_colture, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td id="<%= cat_colture.id %>" ><%= cat_colture.id_parent %></td>
+        <td><%= link_to 'Visualizza', cat_colture, class:"btn btn-primary" %></td>
+        <td><%= link_to 'Modifica', edit_cat_colture_path(cat_colture), class:"btn btn-warning" %></td>
+        <td><%= link_to 'Elimina', cat_colture, method: :delete, data: { confirm: 'Sei sicuro?' }, class:"btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +36,37 @@
 
 <br>
 
-<%= link_to 'New Cat Colture', new_cat_colture_path %>
+<%= link_to 'Nuova categoria Colture', new_cat_colture_path, class:"btn btn-success" %>
+<script>
+				$(document).ready(function () {
+
+            var categorie=$.ajax({
+                url:"/cat_coltures.json" ,
+                async: false,
+                dataType: 'json'
+            }).responseJSON;
+
+
+            for (var i = 0; i < categorie.length; i++)
+            {
+                  $('#'+categorie[i].id).text(getCatFromID(categorie,categorie[i].id_parent));
+                  console.log("ho settato il parente di "+categorie[i].nome+" ed è: "+getCatFromID(categorie,categorie[i].id_parent))
+            }
+
+				    $('#table').DataTable();
+
+				} );
+
+        function getCatFromID(categorie,id)
+        {
+
+          for (var i = 0; i < categorie.length; i++)
+          {
+            if(id==categorie[i].id)
+            {
+              return categorie[i].nome;
+            }
+
+          }
+        }
+</script>

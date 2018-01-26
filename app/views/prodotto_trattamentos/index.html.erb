@@ -1,15 +1,23 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.js"></script>
+<script src="libs/jspdf.debug.js"></script>
+<script src="libs/jspdf.plugin.autotable.js"></script>
+<script  type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="  https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
 <p id="notice"><%= notice %></p>
 
 <h1>Prodotto Trattamentos</h1>
 
-<table>
+<table id="table">
   <thead>
     <tr>
       <th>Id prodotto</th>
       <th>Id trattamento</th>
       <th>Dose ha</th>
       <th>Avvesit</th>
-      <th colspan="3"></th>
+      <th></th><th></th><th></th>
     </tr>
   </thead>
 
@@ -20,9 +28,9 @@
         <td><%= prodotto_trattamento.id_trattamento %></td>
         <td><%= prodotto_trattamento.dose_ha %></td>
         <td><%= prodotto_trattamento.avvesit %></td>
-        <td><%= link_to 'Show', prodotto_trattamento %></td>
-        <td><%= link_to 'Edit', edit_prodotto_trattamento_path(prodotto_trattamento) %></td>
-        <td><%= link_to 'Destroy', prodotto_trattamento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Visualizza', prodotto_trattamento, class:"btn btn-primary" %></td>
+        <td><%= link_to 'Modifica', edit_prodotto_trattamento_path(prodotto_trattamento), class:"btn btn-warning" %></td>
+        <td><%= link_to 'Elimina', prodotto_trattamento, method: :delete, data: { confirm: 'Sei sicuro?' }, class:"btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +38,9 @@
 
 <br>
 
-<%= link_to 'New Prodotto Trattamento', new_prodotto_trattamento_path %>
+<%= link_to 'Nuovo Prodotto Trattamento', new_prodotto_trattamento_path, class:"btn btn-success" %>
+<script>
+				$(document).ready(function () {
+				    $('#table').DataTable();
+				} );
+</script>

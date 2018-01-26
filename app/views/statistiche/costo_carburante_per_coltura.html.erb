@@ -1,2 +1,50 @@
-<h1>Statistiche#costo_carburante_per_coltura</h1>
-<p>Find me in app/views/statistiche/costo_carburante_per_coltura.html.erb</p>
+<h1>Costo carburante per Coltura</h1>
+
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="http://cdn-na.infragistics.com/igniteui/2017.2/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="http://cdn-na.infragistics.com/igniteui/2017.2/latest/css/structure/infragistics.css" rel="stylesheet" />
+
+    <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="http://cdn-na.infragistics.com/igniteui/2017.2/latest/js/infragistics.core.js"></script>
+    <script src="http://cdn-na.infragistics.com/igniteui/2017.2/latest/js/infragistics.dv.js"></script>
+
+
+
+    <style type="text/css">
+         #chart {
+            position: relative;
+            float: left;
+            margin-right: 10px;
+            margin-bottom: 10px;
+    }
+
+    </style>
+
+    <div id="chart"></div>
+
+    <script>
+
+        $(function () {
+
+            var data =$.ajax({
+                url:"/costo_carburante_per_coltura.json" ,
+                async: false,
+                dataType: 'json'
+            }).responseJSON;
+
+            $("#chart").igPieChart({
+                width: "435px",
+                height: "435px",
+                dataSource: data, //JSON data defined above
+                dataValue: "Pop2008",
+                dataLabel: "CountryName",
+                labelsPosition: "bestFit"
+            });
+
+        });
+    </script>

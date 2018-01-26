@@ -54,7 +54,7 @@
         </td>
         <td id="prodotti"></td>
         <td id="operazioni"></td>
-        <td><%= link_to 'Visualizza', trattamento ,class: "btn btn-success" %></td>
+        <td><%= link_to 'Visualizza', trattamento , class:"btn btn-primary" %></td>
         <td><%= link_to 'Modifica', edit_trattamento_path(trattamento) ,class: "btn btn-warning" %></td>
         <td><%= link_to 'Elimina', trattamento, method: :delete, data: { confirm: 'Sei sicuro di voler eliminare il trattamento?' },class: "btn btn-danger" %></td>  </tr>
     <% end %>

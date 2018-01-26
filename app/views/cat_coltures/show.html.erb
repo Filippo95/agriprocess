@@ -11,9 +11,42 @@
 </p>
 
 <p>
-  <strong>Id parent:</strong>
-  <%= @cat_colture.id_parent %>
+  <strong>Padre:</strong>
+  <span id="<%= @cat_colture.id %>"><%= @cat_colture.id_parent %></span>
 </p>
 
-<%= link_to 'Edit', edit_cat_colture_path(@cat_colture) %> |
-<%= link_to 'Back', cat_coltures_path %>
+<%= link_to 'Modifica', edit_cat_colture_path(@cat_colture), class:"btn btn-warning" %> |
+<%= link_to 'Indietro', cat_coltures_path , class:"btn btn-info"%>
+<script>
+$(document).ready(function () {
+
+    var categorie=$.ajax({
+        url:"/cat_coltures.json" ,
+        async: false,
+        dataType: 'json'
+    }).responseJSON;
+
+
+    for (var i = 0; i < categorie.length; i++)
+    {
+          $('#'+categorie[i].id).text(getCatFromID(categorie,categorie[i].id_parent));
+          console.log("ho settato il parente di "+categorie[i].nome+" ed è: "+getCatFromID(categorie,categorie[i].id_parent))
+    }
+
+    $('#table').DataTable();
+
+} );
+
+function getCatFromID(categorie,id)
+{
+
+  for (var i = 0; i < categorie.length; i++)
+  {
+    if(id==categorie[i].id)
+    {
+      return categorie[i].nome;
+    }
+
+  }
+}
+</script>

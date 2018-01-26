@@ -6,8 +6,8 @@
 </p>
 
 <p>
-  <strong>Id prodotto:</strong>
-  <%= @prezzo.id_prodotto %>
+  <strong>Prodotto:</strong>
+<span id="<%= @prezzo.id_prodotto %>"></span>
 </p>
 
 <p>
@@ -20,5 +20,25 @@
   <%= @prezzo.sconto %>
 </p>
 
-<%= link_to 'Edit', edit_prezzo_path(@prezzo) %> |
-<%= link_to 'Back', prezzos_path %>
+<%= link_to 'Modifica', edit_prezzo_path(@prezzo), class:"btn btn-warning" %> |
+<%= link_to 'Indietro', prezzos_path , class:"btn btn-info"%>
+<script>
+$(document).ready(function () {
+
+    var categorie=$.ajax({
+        url:"/prodottos.json" ,
+        async: false,
+        dataType: 'json'
+    }).responseJSON;
+
+
+    for (var i = 0; i < categorie.length; i++)
+    {
+          $('#'+categorie[i].id).text(categorie[i].nome);
+          console.log("ho settato il parente di "+categorie[i].nome+" ed è: "+categorie[i].nome)
+    }
+
+
+} );
+
+</script>

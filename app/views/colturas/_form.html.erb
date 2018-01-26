@@ -1,3 +1,6 @@
+<script  type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <%= form_with(model: coltura, local: true) do |form| %>
   <% if coltura.errors.any? %>
     <div id="error_explanation">
@@ -21,11 +24,62 @@
     <%= form.text_field :estensione_ha, id: :coltura_estensione_ha %>
   </div>
 
-  <div class="field">
-    <%= form.label :id_cat %>
-    <%= form.number_field :id_cat, id: :coltura_id_cat %>
-  </div>
 
+  <div class="field">
+        <%= form.label :id_cat %><input type="text" id="ccv" disabled="disabled">
+        <%= form.hidden_field :id_cat, id: :coltura_id_cat%>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalA">
+            Seleziona categoria
+          </button>
+          <div class="modal fade" id="exampleModalA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seleziona categoria</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <script>
+              function Dispose1( id, nome){
+                $('#coltura_id_cat').val(id);
+        console.log(id)
+                  $('#ccv').val(nome);
+              }
+                        $(document).ready(function () {
+
+                        $.ajax({
+                            url: "http://localhost:3000/cat_coltures.json",
+                            dataType: "json",
+                            timeout: 800000,
+                            cache: true}).done(function (o) {
+                            for (var i = 0; i < o.length; i++)
+                            {
+                                $('#tabcolturebody').append('<tr><td>' + o[i].nome + '</td><td>  <button type="button" data-dismiss="modal" class="btn btn-primary" onClick="Dispose1(\''+o[i].id+'\',\''+o[i].nome+'\')">Seleziona</button></td></tr> ');
+                            }
+                            $('#tabcolture').DataTable();
+                        });
+                    });
+                </script>
+              <div class="modal-body">
+                <table id="tabcolture" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody id="tabcolturebody">
+
+                </tbody>
+            </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
   <div class="actions">
     <%= form.submit %>
   </div>

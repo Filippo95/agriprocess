@@ -11,9 +11,41 @@
 </p>
 
 <p>
-  <strong>Id prarent:</strong>
-  <%= @cat_prodotto.id_prarent %>
+  <strong>Padre:</strong>
+  <span id="<%= @cat_prodotto.id %>"><%= @cat_prodotto.id_prarent %></span>
 </p>
 
-<%= link_to 'Edit', edit_cat_prodotto_path(@cat_prodotto) %> |
-<%= link_to 'Back', cat_prodottos_path %>
+<%= link_to 'Modifica', edit_cat_prodotto_path(@cat_prodotto), class:"btn btn-warning"%> |
+<%= link_to 'Indietro', cat_prodottos_path, class:"btn btn-info" %>
+<script>
+$(document).ready(function () {
+
+    var categorie=$.ajax({
+        url:"/cat_prodottos.json" ,
+        async: false,
+        dataType: 'json'
+    }).responseJSON;
+
+
+    for (var i = 0; i < categorie.length; i++)
+    {
+          $('#'+categorie[i].id).text(getCatFromID(categorie,categorie[i].id_prarent));
+          console.log("ho settato il parente di "+categorie[i].nome+" ed è: "+getCatFromID(categorie,categorie[i].id_prarent))
+    }
+
+
+} );
+
+function getCatFromID(categorie,id)
+{
+
+  for (var i = 0; i < categorie.length; i++)
+  {
+    if(id==categorie[i].id)
+    {
+      return categorie[i].nome;
+    }
+
+  }
+}
+</script>

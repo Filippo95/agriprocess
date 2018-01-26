@@ -1,14 +1,34 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Id prodotto:</strong>
-  <%= @carico.id_prodotto %>
+  <strong>Prodotto:</strong>
+  <span id="<%= @carico.id_prodotto %>"></span>
 </p>
 
 <p>
-  <strong>Quantit:</strong>
+  <strong>Quantità:</strong>
   <%= @carico.quantit %>
 </p>
 
-<%= link_to 'Edit', edit_carico_path(@carico) %> |
-<%= link_to 'Back', caricos_path %>
+<%= link_to 'Modifica', edit_carico_path(@carico), class:"btn btn-warning" %> |
+<%= link_to 'Indietro', caricos_path, class:"btn btn-info" %>
+<script>
+$(document).ready(function () {
+
+    var categorie=$.ajax({
+        url:"/prodottos.json" ,
+        async: false,
+        dataType: 'json'
+    }).responseJSON;
+
+
+    for (var i = 0; i < categorie.length; i++)
+    {
+          $('#'+categorie[i].id).text(categorie[i].nome);
+          console.log("ho settato il parente di "+categorie[i].nome+" ed è: "+categorie[i].nome)
+    }
+
+
+} );
+
+</script>
