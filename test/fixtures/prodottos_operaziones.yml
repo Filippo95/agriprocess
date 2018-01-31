@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_prodotto: 1
+  id_operaziones: 1
+
+two:
+  id_prodotto: 1
+  id_operaziones: 1

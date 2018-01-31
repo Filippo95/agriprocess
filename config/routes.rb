@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :prodottos_operaziones
+  resources :operaziones_cat_coltures
   get 'statistiche/costo_per_cat_coltura'
 
   get 'statistiche/costo_per_coltura'

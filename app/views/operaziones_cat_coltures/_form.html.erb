@@ -1,0 +1,27 @@
+<%= form_with(model: operaziones_cat_colture, local: true) do |form| %>
+  <% if operaziones_cat_colture.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(operaziones_cat_colture.errors.count, "error") %> prohibited this operaziones_cat_colture from being saved:</h2>
+
+      <ul>
+      <% operaziones_cat_colture.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :id_operazione %>
+    <%= form.number_field :id_operazione, id: :operaziones_cat_colture_id_operazione %>
+  </div>
+
+  <div class="field">
+    <%= form.label :id_cat_coltures %>
+    <%= form.number_field :id_cat_coltures, id: :operaziones_cat_colture_id_cat_coltures %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+class ProdottosOperazione < ApplicationRecord
+end

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Prodottos Operaziones</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id prodotto</th>
+      <th>Id operaziones</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @prodottos_operaziones.each do |prodottos_operazione| %>
+      <tr>
+        <td><%= prodottos_operazione.id_prodotto %></td>
+        <td><%= prodottos_operazione.id_operaziones %></td>
+        <td><%= link_to 'Show', prodottos_operazione %></td>
+        <td><%= link_to 'Edit', edit_prodottos_operazione_path(prodottos_operazione) %></td>
+        <td><%= link_to 'Destroy', prodottos_operazione, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Prodottos Operazione', new_prodottos_operazione_path %>
