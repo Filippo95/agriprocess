@@ -16,7 +16,6 @@
 
 <h1>Trattamenti</h1>
 
-
 <table id="table">
   <thead>
     <tr>
@@ -61,9 +60,11 @@
   </tbody>
 </table>
 
-<br>
+<span>
 <%= link_to 'Nuovo Trattamento', new_trattamento_path ,class: "btn btn-success" %>
-
+<t><t>
+<button onclick="PrintPDF()" type="button" class="btn btn-info">Esporta PDF</button>
+</span>
 <script>
 $(document).ready(function () {
 
@@ -151,5 +152,26 @@ $(document).ready(function () {
                       });
           });
     $('#table').DataTable();
+
+
 } );
+function PrintPDF(){
+  var columns = ["Data", "Coltura", "est.ha", "s","t","if","r","Prodotto","Avversità","Quantità"];
+
+
+
+
+        var data = [
+            ["25/01/2019", "Pesche pasta bianca", "10","X","","","", "DDT","tutte","10"],
+            ["25/01/2019", "Pesche pasta gialla", "10","","","X","", "DDT","tutte","10"],
+            ["25/01/2019", "Pere Abate", "10","","","X","", "DDT","tutte","10"],
+            ["25/01/2019", "Mele Pink Lady", "10","","X","","", "DDT","tutte","10"],
+            ["25/01/2019", "Pesche pasta bianca", "10","","","","X", "DDT","tutte","10"],
+        ];
+        var doc = new jsPDF();
+        doc.autoTable(columns, data);
+        doc.output("dataurlnewwindow");
+
+}
+
 </script>

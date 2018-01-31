@@ -1,7 +1,10 @@
 class StatisticheController < ApplicationController
   def costo_per_cat_coltura
-    sql = "SELECT id, nome from cat_coltures "
+    sql = "SELECT *  from cat_coltures "
     records_array = ActiveRecord::Base.connection.execute(sql)
+    
+
+
 
     respond_to do |format|
       format.html # show.html.erb

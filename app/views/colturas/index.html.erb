@@ -40,7 +40,7 @@
 <script>
 $(document).ready(function () {
 
-    $("tr").each(function() {
+
       var p=$.ajax({
           url:"/cat_coltures.json" ,
           async: false,
@@ -52,7 +52,7 @@ $(document).ready(function () {
           $('#'+p[i].id).text(p[i].nome);
 
       }
-    });
+
     $('#table').DataTable();
 } );
 </script>
