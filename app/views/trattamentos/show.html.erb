@@ -109,7 +109,6 @@ $.ajax({
     <tr>
       <th>Nome</th>
       <th>Descrizione</th>
-      <th>Costo per Ha</th>
 
       <th></th>
     </tr>
@@ -141,7 +140,7 @@ var operazioni=$.ajax({
     {
       if(trattamenti_operazioni[i].id_operazione==operazioni[k].id && trattamenti_operazioni[i].id_trattamento=="<%= @trattamento.id %>" )
       {
-        $('#tableOperazioniBody').append('<tr><td>' + operazioni[k].nome + '</td><td>' + operazioni[k].descrizione + '</td><td>' + operazioni[k].per_ha + '</td><td>  <a data-confirm="Sei sicuro?" class ="btn btn-danger" rel="nofollow" data-method="delete" href="/operazione_trattamentos/'+trattamenti_operazioni[i].id+'">Elimina</a> </td></tr> ');
+        $('#tableOperazioniBody').append('<tr><td>' + operazioni[k].nome + '</td><td>' + operazioni[k].descrizione + '</td><td>  <a data-confirm="Sei sicuro?" class ="btn btn-danger" rel="nofollow" data-method="delete" href="/operazione_trattamentos/'+trattamenti_operazioni[i].id+'">Elimina</a> </td></tr> ');
       }
     }
   }
@@ -174,7 +173,7 @@ var operazioni=$.ajax({
                         cache: true}).done(function (o) {
                         for (var i = 0; i < o.length; i++)
                         {
-                            $('#operazionebody').append('<tr><td>' + o[i].nome + '</td><td>' + o[i].per_ha + '</td><td>  <button type="button" data-dismiss="modal" class="btn btn-primary" onClick="OperazionesDispose(\''+o[i].id+'\',\''+o[i].nome+'\')">Seleziona</button></td></tr> ');
+                            $('#operazionebody').append('<tr><td>' + o[i].nome + '</td><td>  <button type="button" data-dismiss="modal" class="btn btn-primary" onClick="OperazionesDispose(\''+o[i].id+'\',\''+o[i].nome+'\')">Seleziona</button></td></tr> ');
                         }
                         $('#operazione').DataTable();
                     });
@@ -188,7 +187,6 @@ var operazioni=$.ajax({
                     <th>Nome</th>
 
 
-                    <th>costo per ha</th>
                     <th></th>
 
                 </tr>
@@ -231,7 +229,7 @@ var operazioni=$.ajax({
       <th>Nome</th>
       <th>Avversità Prodotto</th>
 
-      <th>Dose per ettaro</th>
+      <th>Dose per ettaro[L o Kg]</th>
       <th>Avversità combattuta</th>
 <th></th>
     </tr>
@@ -364,7 +362,7 @@ $(document).ready(function () {
   </div>
 
   <div class="field">
-    <label for="prodotto_trattamento_dose_ha">Dose per Ha</label>
+    <label for="prodotto_trattamento_dose_ha">Dose per Ha[L o Kg]</label>
     <input id="prodotto_trattamento_dose_ha" name="prodotto_trattamento[dose_ha]" type="text">
   </div>
 

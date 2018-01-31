@@ -15,7 +15,6 @@
     <tr>
       <th>Nome</th>
       <th>Descrizione</th>
-      <th>Per Ha</th>
       <th></th><th></th><th></th>
     </tr>
   </thead>
@@ -25,7 +24,6 @@
       <tr>
         <td><%= operazione.nome %></td>
         <td><%= operazione.descrizione %></td>
-        <td><%= operazione.per_ha %></td>
         <td><%= link_to 'Visualizza', operazione, class:"btn btn-primary" %></td>
         <td><%= link_to 'Modifica', edit_operazione_path(operazione), class:"btn btn-warning" %></td>
         <td><%= link_to 'Elimina', operazione, method: :delete, data: { confirm: 'Sei sicuro?' }, class:"btn btn-danger" %></td>
