@@ -28,7 +28,7 @@ class OperazionesCatColturesController < ApplicationController
 
     respond_to do |format|
       if @operaziones_cat_colture.save
-        format.html { redirect_to @operaziones_cat_colture, notice: 'Operaziones cat colture was successfully created.' }
+        format.html  { redirect_to  controller: 'operaziones', action: 'show', id: @operaziones_cat_colture.id_operazione  }
         format.json { render :show, status: :created, location: @operaziones_cat_colture }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class OperazionesCatColturesController < ApplicationController
   def destroy
     @operaziones_cat_colture.destroy
     respond_to do |format|
-      format.html { redirect_to operaziones_cat_coltures_url, notice: 'Operaziones cat colture was successfully destroyed.' }
+      format.html  { redirect_to  controller: 'operaziones', action: 'show', id: @operaziones_cat_colture.id_operazione  }
       format.json { head :no_content }
     end
   end

@@ -28,7 +28,7 @@ class ProdottosOperazionesController < ApplicationController
 
     respond_to do |format|
       if @prodottos_operazione.save
-        format.html { redirect_to @prodottos_operazione, notice: 'Prodottos operazione was successfully created.' }
+        format.html { redirect_to  controller: 'prodottos', action: 'show', id: @prodottos_operazione.id_prodotto }
         format.json { render :show, status: :created, location: @prodottos_operazione }
       else
         format.html { render :new }
@@ -56,7 +56,7 @@ class ProdottosOperazionesController < ApplicationController
   def destroy
     @prodottos_operazione.destroy
     respond_to do |format|
-      format.html { redirect_to prodottos_operaziones_url, notice: 'Prodottos operazione was successfully destroyed.' }
+      format.html { redirect_to  controller: 'prodottos', action: 'show', id: @prodottos_operazione.id_prodotto }
       format.json { head :no_content }
     end
   end

@@ -1,3 +1,19 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.css"/>
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.js"></script>
+
+<script src="libs/jspdf.debug.js"></script>
+<script src="libs/jspdf.plugin.autotable.js"></script>
+
+
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+  <link rel="stylesheet" type="text/css" href="  https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
+
+
+
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -14,3 +30,118 @@
 
 <%= link_to 'Modifica', edit_operazione_path(@operazione), class:"btn btn-warning" %> |
 <%= link_to 'Indietro', operaziones_path, class:"btn btn-info"%>
+
+
+<h1>In che colture puoi fare questa operazione?</h1>
+<table id="tableOperazioni">
+  <thead>
+
+      <th>Nome</th>
+
+      <th></th>
+
+  </thead>
+
+  <tbody id="tableColtureBody">
+
+  </tbody>
+</table>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalA">
+  Seleziona categoria
+</button>
+<div class="modal fade" id="exampleModalA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Seleziona categoria</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <script>
+    function Dispose1( id, nome){
+
+      $("#id_cat_coltura").val(id);
+      $("#add_cat").submit();
+      console.log(id)
+      console.log(nome)
+    }
+              $(document).ready(function () {
+
+              $.ajax({
+                  url: "/cat_coltures.json",
+                  dataType: "json",
+                  timeout: 800000,
+                  cache: true}).done(function (o) {
+                  for (var i = 0; i < o.length; i++)
+                  {
+                      $('#tabcolturebody').append('<tr><td>' + o[i].nome + '</td><td>  <button type="button" data-dismiss="modal" class="btn btn-primary" onClick="Dispose1(\''+o[i].id+'\',\''+o[i].nome+'\')">Seleziona</button></td></tr> ');
+                  }
+                  $('#tabcolture').DataTable();
+              });
+          });
+      </script>
+    <div class="modal-body">
+      <table id="tabcolture" class="display" cellspacing="0" width="100%">
+      <thead>
+          <tr>
+              <th>Nome</th>
+              <th></th>
+
+          </tr>
+      </thead>
+      <tbody id="tabcolturebody">
+
+      </tbody>
+  </table>
+  <form action="/operaziones_cat_coltures" accept-charset="UTF-8" method="post" id="add_cat"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="a8eqUnb361ttuL5FzOYuqLkr77e8fi39OV7cmKQR8Kf9+YEqnEEQZdPVKHbl9uwVFG3tMk6Yq8wq4gCP0kQ3xA==" type="hidden">
+
+  <div class="field">
+    <input id="operaziones_cat_colture_id_operazione" name="operaziones_cat_colture[id_operazione]" id="id_operazione" type="hidden" value="<%= @operazione.id %> ">
+  </div>
+
+  <div class="field">
+    <input  name="operaziones_cat_colture[id_cat_coltures]" id="id_cat_coltura" type="hidden" value="" >
+  </div>
+
+  <div class="actions">
+    <input name="commit" value="Create Operaziones cat colture" data-disable-with="Create Operaziones cat colture" type="submit">
+  </div>
+</form>
+    </div>
+
+  </div>
+</div>
+</div>
+
+
+<script>
+$(document).ready(function () {
+var operaziones_cat_coltures=$.ajax({
+    url:"/operaziones_cat_coltures.json" ,
+    async: false,
+    dataType: 'json'
+}).responseJSON;
+
+
+var cat_coltures=$.ajax({
+    url:"/cat_coltures.json" ,
+    async: false,
+    dataType: 'json'
+}).responseJSON;
+
+
+  for (var i = 0; i < operaziones_cat_coltures.length; i++)
+  {
+    for (var k = 0; k < cat_coltures.length; k++)
+    {
+      if(cat_coltures[k].id==operaziones_cat_coltures[i].id_cat_coltures && operaziones_cat_coltures[i].id_operazione=="<%= @operazione.id %> ")
+      {
+        $('#tableColtureBody').append('<tr><td>' + cat_coltures[k].nome + '</td><td>    <a data-confirm="Sei sicuro?" class ="btn btn-danger"  rel="nofollow" data-method="delete" href="/operaziones_cat_coltures/' + operaziones_cat_coltures[i].id + '">Elimina</a></td></tr> ');
+      }
+    }
+  }
+
+$('#tableOperazioni').DataTable();
+});
+</script>
