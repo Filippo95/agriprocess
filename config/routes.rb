@@ -1,24 +1,16 @@
 Rails.application.routes.draw do
-  resources :prodottos_operaziones
-  resources :operaziones_cat_coltures
-  get 'statistiche/costo_per_cat_coltura'
 
   get 'statistiche/costo_per_coltura'
 
   get 'statistiche/costo_per_operazione'
 
-  get 'statistiche/costo_carburante_per_cat_coltura'
-
-  get 'statistiche/costo_carburante_per_coltura'
-
-  get 'statistiche/costo_carburante_per_operazione'
-
-  get 'statistiche/costo_carburante_per_attrezzo'
 
   authenticated :user do
 root to: 'trattamentos#index', as: :authenticated_root
 end
 root to: redirect('/users/sign_in')
+  resources :prodottos_operaziones
+  resources :operaziones_cat_coltures
   devise_for :users
   resources :prezzos
   resources :prodottos

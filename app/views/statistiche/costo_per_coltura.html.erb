@@ -12,7 +12,9 @@
     <script src="http://cdn-na.infragistics.com/igniteui/2017.2/latest/js/infragistics.core.js"></script>
     <script src="http://cdn-na.infragistics.com/igniteui/2017.2/latest/js/infragistics.dv.js"></script>
 
-
+<script  type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 
     <style type="text/css">
          #chart {
@@ -26,24 +28,43 @@
 
     <div id="chart"></div>
 
+
+<table id="data">
+	<thead>
+		<th>Coltura</th>
+		<th>Costo Prodotti</th>
+		<th>Costo Carburante</th>
+	</thead>
+	<tbody id="tab">
+
+	</tbody>
+</table>
     <script>
+$( document ).ready(function() {
 
-        $(function () {
 
-            var data =$.ajax({
-                url:"/costo_per_coltura.json" ,
-                async: false,
-                dataType: 'json'
-            }).responseJSON;
+            $.ajax({
+                            url: "costo_per_coltura.json",
+                            dataType: "json",
+                            timeout: 800000,
+                            cache: true}).done(function (o) {
+                            	console.log(o)
+                            	for (var i = 0; i < o.length; i++)
+                            {
+                                $('#tab').append('<tr><td>' +o[i][0]+ '</td><td>'  +o[i][1]+ '</td><td>'  +o[i][2]+ '</td></tr> ')
+                            }
+                            $('#data').DataTable();
 
-            $("#chart").igPieChart({
+                        });
+});
+           /** $("#chart").igPieChart({
                 width: "435px",
                 height: "435px",
                 dataSource: data, //JSON data defined above
                 dataValue: "Pop2008",
                 dataLabel: "CountryName",
                 labelsPosition: "bestFit"
-            });
+            });**/
 
-        });
+
     </script>
