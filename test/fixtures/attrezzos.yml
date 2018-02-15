@@ -5,9 +5,11 @@ one:
   descrizione: MyText
   costo_carburante: 1.5
   deperimento: 1.5
+  consumo: 1.5
 
 two:
   nome: MyString
   descrizione: MyText
   costo_carburante: 1.5
   deperimento: 1.5
+  consumo: 1.5

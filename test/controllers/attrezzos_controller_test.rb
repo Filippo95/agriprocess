@@ -17,7 +17,7 @@ class AttrezzosControllerTest < ActionDispatch::IntegrationTest
 
   test "should create attrezzo" do
     assert_difference('Attrezzo.count') do
-      post attrezzos_url, params: { attrezzo: { costo_carburante: @attrezzo.costo_carburante, deperimento: @attrezzo.deperimento, descrizione: @attrezzo.descrizione, nome: @attrezzo.nome } }
+      post attrezzos_url, params: { attrezzo: { consumo: @attrezzo.consumo, costo_carburante: @attrezzo.costo_carburante, deperimento: @attrezzo.deperimento, descrizione: @attrezzo.descrizione, nome: @attrezzo.nome } }
     end
 
     assert_redirected_to attrezzo_url(Attrezzo.last)
@@ -34,7 +34,7 @@ class AttrezzosControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update attrezzo" do
-    patch attrezzo_url(@attrezzo), params: { attrezzo: { costo_carburante: @attrezzo.costo_carburante, deperimento: @attrezzo.deperimento, descrizione: @attrezzo.descrizione, nome: @attrezzo.nome } }
+    patch attrezzo_url(@attrezzo), params: { attrezzo: { consumo: @attrezzo.consumo, costo_carburante: @attrezzo.costo_carburante, deperimento: @attrezzo.deperimento, descrizione: @attrezzo.descrizione, nome: @attrezzo.nome } }
     assert_redirected_to attrezzo_url(@attrezzo)
   end
 

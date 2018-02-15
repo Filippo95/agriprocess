@@ -12,13 +12,18 @@
 
 <p>
   <strong>Costo carburante:</strong>
-  <%= @attrezzo.costo_carburante %> [Euro/L]
+  <%= @attrezzo.costo_carburante %>
 </p>
 
 <p>
-  <strong>Consuno:</strong>
-  <%= @attrezzo.deperimento %>[L/Ha]
+  <strong>Deperimento:</strong>
+  <%= @attrezzo.deperimento %>
 </p>
 
-<%= link_to 'Modifica', edit_attrezzo_path(@attrezzo), class:"btn btn-warning" %> |
-<%= link_to 'Indietro', attrezzos_path, class:"btn btn-info"%>
+<p>
+  <strong>Consumo:</strong>
+  <%= @attrezzo.consumo %>
+</p>
+
+<%= link_to 'Edit', edit_attrezzo_path(@attrezzo) %> |
+<%= link_to 'Back', attrezzos_path %>

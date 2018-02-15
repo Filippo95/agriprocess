@@ -5,6 +5,7 @@ class CreateAttrezzos < ActiveRecord::Migration[5.1]
       t.text :descrizione
       t.float :costo_carburante
       t.float :deperimento
+      t.float :consumo
 
       t.timestamps
     end

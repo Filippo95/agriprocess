@@ -1,6 +1,3 @@
-<script  type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <%= form_with(model: attrezzo, local: true) do |form| %>
   <% if attrezzo.errors.any? %>
     <div id="error_explanation">
@@ -24,12 +21,19 @@
     <%= form.text_area :descrizione, id: :attrezzo_descrizione %>
   </div>
 
-  <div class="field"><label for="attrezzo_costo_carburante">Costo carburante [Euro/L]</label>
+  <div class="field">
+    <%= form.label :costo_carburante %>
     <%= form.text_field :costo_carburante, id: :attrezzo_costo_carburante %>
   </div>
 
-  <div class="field"><label for="attrezzo_deperimento">Consumo [L/Ha]</label>
+  <div class="field">
+    <%= form.label :deperimento %>
     <%= form.text_field :deperimento, id: :attrezzo_deperimento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :consumo %>
+    <%= form.text_field :consumo, id: :attrezzo_consumo %>
   </div>
 
   <div class="actions">
