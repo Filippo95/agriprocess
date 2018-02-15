@@ -23,7 +23,7 @@ AND 	trattamentos.id=					operazione_trattamentos.id_trattamento
 AND 	trattamentos.id=					prodotto_trattamentos.id_trattamento
 AND 	prodotto_trattamentos.id_prodotto=	prodottos.id
 AND 	prezzos.id_prodotto=				prodottos.id
-AND 	operaziones.id=						operazione_trattamentos.id
+AND 	operaziones.id=						operazione_trattamentos.id_operazione
 AND 	cat_coltures.id=					colturas.id_cat
 group by Categoria,operaziones.nome"
     records_array = ActiveRecord::Base.connection.execute(sql)
