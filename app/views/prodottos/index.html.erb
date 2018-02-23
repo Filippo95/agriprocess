@@ -39,13 +39,13 @@
 <%= link_to 'Nuovo Prodotto', new_prodotto_path, class:"btn btn-success" %>
 <script>
 				$(document).ready(function () {
-
-            $("tr").each(function() {
-              var categorie=$.ajax({
+  var categorie=$.ajax({
                   url:"/cat_prodottos.json" ,
                   async: false,
                   dataType: 'json'
               }).responseJSON;
+            $("tr").each(function() {
+            
               var id_cat=$(this).find('#cat').text();
               for (var i = 0; i < categorie.length; i++)
               {

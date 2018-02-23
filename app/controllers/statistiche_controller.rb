@@ -33,5 +33,16 @@ group by Categoria,operaziones.nome"
       format.json { render json: records_array}
     end
   end
+  
+  
+def giacenza_magazzino
+    sql = ""
+    records_array = ActiveRecord::Base.connection.execute(sql)
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: records_array}
+    end
+  end
 
 end

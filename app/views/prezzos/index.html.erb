@@ -41,12 +41,13 @@
 <%= link_to 'Nuovo Prezzo', new_prezzo_path, class:"btn btn-success" %>
 <script>
 $(document).ready(function () {
-  $("tr").each(function() {
     var prodotti=$.ajax({
         url:"/prodottos.json" ,
         async: false,
         dataType: 'json'
     }).responseJSON;
+  $("tr").each(function() {
+  
     for (var i = 0; i < prodotti.length; i++)
     {
 

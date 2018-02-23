@@ -36,7 +36,7 @@
     <% @trattamentos.each do |trattamento| %>
       <tr class="record" id="<%= trattamento.id%>">
         <td id="ID"><%= trattamento.id%></td>
-        <td><%= trattamento.data.strftime("%m/%d/%Y")%></td>
+        <td><%= trattamento.data.strftime("%d/%m/%Y")%></td>
         <td id="coltura"><%= trattamento.id_coltura %></td>
         <td id="attrezzo"><%= trattamento.id_attrezzo %></td>
         <td><%= trattamento.avversit %></td>
@@ -52,7 +52,6 @@
 
         </td>
         <td id="prodotti"></td>
-        <td id="operazioni"></td>
         <td><%= link_to 'Visualizza', trattamento , class:"btn btn-primary" %></td>
         <td><%= link_to 'Modifica', edit_trattamento_path(trattamento) ,class: "btn btn-warning" %></td>
         <td><%= link_to 'Elimina', trattamento, method: :delete, data: { confirm: 'Sei sicuro di voler eliminare il trattamento?' },class: "btn btn-danger" %></td>  </tr>
@@ -67,10 +66,7 @@
 </span>
 <script>
 $(document).ready(function () {
-
-  $("tr").each(function() {
-    console.log("faccio");
-          var trattamenti_operazioni=$.ajax({
+var trattamenti_operazioni=$.ajax({
               url:"/operazione_trattamentos.json" ,
               async: false,
               dataType: 'json'
@@ -82,6 +78,25 @@ $(document).ready(function () {
               async: false,
               dataType: 'json'
           }).responseJSON;
+          
+          
+          var trattamenti_prodotti=$.ajax({
+                url:"/prodotto_trattamentos.json" ,
+                async: false,
+                dataType: 'json'
+            }).responseJSON;
+
+
+            var prodotti=$.ajax({
+                url:"/prodottos.json" ,
+                async: false,
+                dataType: 'json'
+            }).responseJSON;
+            
+            
+  $("tr").each(function() {
+    console.log("faccio");
+          
 
 
             for (var i = 0; i < trattamenti_operazioni.length; i++)
@@ -95,18 +110,7 @@ $(document).ready(function () {
                 }
               }
             }
-            var trattamenti_prodotti=$.ajax({
-                url:"/prodotto_trattamentos.json" ,
-                async: false,
-                dataType: 'json'
-            }).responseJSON;
-
-
-            var prodotti=$.ajax({
-                url:"/prodottos.json" ,
-                async: false,
-                dataType: 'json'
-            }).responseJSON;
+            
 
 
               for (var i = 0; i < trattamenti_prodotti.length; i++)

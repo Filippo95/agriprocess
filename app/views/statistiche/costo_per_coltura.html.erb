@@ -1,7 +1,9 @@
 <h1>Costo per Coltura</h1>
 
-   
     <!-- Ignite UI Required Combined CSS Files -->
+    
+
+<!-- Ignite UI Required Combined CSS Files -->
     <link href="http://cdn-na.infragistics.com/igniteui/2017.2/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
     <link href="http://cdn-na.infragistics.com/igniteui/2017.2/latest/css/structure/infragistics.css" rel="stylesheet" />
 
@@ -17,17 +19,12 @@
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 
-    <style type="text/css">
-         #chart {
-            position: relative;
-            float: left;
-            margin-right: 10px;
-            margin-bottom: 10px;
-    }
 
-    </style>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-    <div id="chart"></div>
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+    
 
 
 <table id="data">
@@ -41,6 +38,7 @@
 	</tbody>
 </table>
 
+    <div  id="data_carburante" ></div>
     <script>
 $( document ).ready(function() {
 
@@ -58,17 +56,82 @@ $( document ).ready(function() {
                             $('#data').DataTable();
 
                         });
+
+
+
+  $.ajax({
+                            url: "https://trattamenti-web-service-filippo95.c9users.io/charts.php?query=carburante",
+                            dataType: "text",
+                            timeout: 800000,
+                            cache: true}).done(function (o) {
+                            console.log(o);
+                            $('#data_carburante').append(o);
+                          chart();
+                        });
+                        
+                        
+function chart(){
+             
+  var dater=$("#data_carburante").html();
+console.log("ajax finisched");
+console.log(dater);
+  
+Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Browser market shares January, 2015 to May, 2015'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: false
+            },
+            showInLegend: true
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: dater
+    }]
 });
-           /** $("#chart").igPieChart({
-                width: "435px",
-                height: "435px",
-                dataSource: data, //JSON data defined above
-                dataValue: "Pop2008",
-                dataLabel: "CountryName",
-                labelsPosition: "bestFit"
-            });**/
+  
+  
 
 
+
+}
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+});
+  
+  
+  
+  
+  
+  
 
 
 
