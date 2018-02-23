@@ -38,19 +38,7 @@
         <td id="ID"><%= trattamento.id%></td>
         <td><%= trattamento.data.strftime("%d/%m/%Y")%></td>
         <td id="coltura"><%= trattamento.id_coltura %></td>
-        <td id="attrezzo"><%= trattamento.id_attrezzo %></td>
-        <td><%= trattamento.avversit %></td>
-        <td><%if trattamento.semina %>
-              Semina
-          <% elsif trattamento.trapianto %>
-          Trapianto
-          <% elsif trattamento.fioritura %>
-          Fioritura
-          <% elsif trattamento.raccolta %>
-          Raccolta
-          <%end%>
-
-        </td>
+       
         <td id="prodotti"></td>
         <td><%= link_to 'Visualizza', trattamento , class:"btn btn-primary" %></td>
         <td><%= link_to 'Modifica', edit_trattamento_path(trattamento) ,class: "btn btn-warning" %></td>
