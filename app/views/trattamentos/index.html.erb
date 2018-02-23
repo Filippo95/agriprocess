@@ -36,7 +36,7 @@
     <% @trattamentos.each do |trattamento| %>
       <tr class="record" id="<%= trattamento.id%>">
         <td id="ID"><%= trattamento.id%></td>
-        <td><%= Date.strptime('20120225', '%Y%m%d').strftime("%d/%m/%Y") %></td>
+        <td><%= trattamento.data.strftime("%m/%d/%Y")%></td>
         <td id="coltura"><%= trattamento.id_coltura %></td>
         <td id="attrezzo"><%= trattamento.id_attrezzo %></td>
         <td><%= trattamento.avversit %></td>

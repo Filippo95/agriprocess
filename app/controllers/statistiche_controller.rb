@@ -1,6 +1,6 @@
 class StatisticheController < ApplicationController
   def costo_per_coltura
-    sql = "SELECT  colturas.nome AS Coltura, SUM((prezzos.prezzo_fattura-(prezzos.prezzo_fattura*prezzos.sconto/100))*prodotto_trattamentos.dose_ha*colturas.estensione_ha) AS Costo, ROUND(SUM(attrezzos.costo_carburante*attrezzos.deperimento*colturas.estensione_ha), 2) AS Carburante
+    sql = "SELECT  colturas.nome AS Coltura, ROUND(SUM((prezzos.prezzo_fattura-(prezzos.prezzo_fattura*prezzos.sconto/100))*prodotto_trattamentos.dose_ha*colturas.estensione_ha),2) AS Costo, ROUND(SUM(attrezzos.costo_carburante*attrezzos.deperimento*attrezzos.consumo*colturas.estensione_ha), 2) AS Carburante
 FROM Gestione_development.colturas, Gestione_development.trattamentos,Gestione_development.prodotto_trattamentos,Gestione_development.prodottos,Gestione_development.prezzos,Gestione_development.attrezzos
 WHERE Gestione_development.colturas.id=Gestione_development.trattamentos.id_coltura
 AND Gestione_development.trattamentos.id=Gestione_development.prodotto_trattamentos.id_trattamento
@@ -16,7 +16,7 @@ GROUP BY Coltura "
     end
   end
 def costo_per_operazione
-    sql = "SELECT  cat_coltures.nome AS Categoria , operaziones.nome AS Operazione, SUM(colturas.estensione_ha*prodotto_trattamentos.dose_ha*prezzos.prezzo_fattura)
+    sql = "SELECT  cat_coltures.nome AS Categoria , operaziones.nome AS Operazione, ROUND(SUM(colturas.estensione_ha*prodotto_trattamentos.dose_ha*prezzos.prezzo_fattura),2)
 FROM trattamentos,operazione_trattamentos,colturas,prodotto_trattamentos,prodottos,prezzos,operaziones,cat_coltures
 WHERE 	colturas.id=						trattamentos.id_coltura
 AND 	trattamentos.id=					operazione_trattamentos.id_trattamento
