@@ -1,0 +1,137 @@
+<h1>Magazzino</h1>
+
+    <!-- Ignite UI Required Combined CSS Files -->
+    <link href="http://cdn-na.infragistics.com/igniteui/2017.2/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="http://cdn-na.infragistics.com/igniteui/2017.2/latest/css/structure/infragistics.css" rel="stylesheet" />
+
+    <script src="http://ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+    <!-- Ignite UI Required Combined JavaScript Files -->
+    <script src="http://cdn-na.infragistics.com/igniteui/2017.2/latest/js/infragistics.core.js"></script>
+    <script src="http://cdn-na.infragistics.com/igniteui/2017.2/latest/js/infragistics.dv.js"></script>
+
+<script  type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+    <style type="text/css">
+         #chart {
+            position: relative;
+            float: left;
+            margin-right: 10px;
+            margin-bottom: 10px;
+    }
+
+    </style>
+
+    <div id="chart"></div>
+    
+<table id="data3">
+	<thead>
+	    <th>ID</th>
+		<th>prodotto</th>
+		<th>prezzo fattura </th>
+		<th>sconto %</th>
+		<th>Qauntità consumata</th>
+	    <th>Quantità caricata</th>
+	    <th>Giacenza di Magazzino</th>
+	    <th>Stima (euro)</th>
+	</thead>
+	<tbody id="tab3">
+
+	</tbody>
+</table>
+    <script>
+$( document ).ready(function() {
+
+
+                        $.ajax({
+                            url: " magazzino.json",
+                            dataType: "json",
+                            timeout: 800000,
+                            cache: true}).done(function (o) {
+                            	console.log(o)
+                            	for (var i = 0; i < o.length; i++)
+                            {
+                                $('#tab3').append('<tr><td>' +o[i][0]+ '</td><td>'  +o[i][1]+ '</td><td>'  +o[i][2]+ '</td><td>'  +o[i][3]+ '</td><td>'  +o[i][4]+ '</td><td>'  +o[i][5]+ '</td><td>'  +o[i][6]+ '</td><td>'  +o[i][7]+ '</td></tr> ')
+                            }
+                            $('#data3').DataTable();
+
+                        });
+});
+           
+    </script>
+
+<h2>Acquisti</h2>
+<table id="data">
+	<thead>
+	    
+		<th>ID</th>
+		<th>prodotto</th>
+		<th>prezzo fattura </th>
+		
+		<th>sconto </th>
+		<th>quantità caricata</th>
+		
+		<th> stima  </th>
+	</thead>
+	<tbody id="tab">
+
+	</tbody>
+</table>
+    <script>
+$( document ).ready(function() {
+
+
+                        $.ajax({
+                            url: " magazzino_acquisti.json",
+                            dataType: "json",
+                            timeout: 800000,
+                            cache: true}).done(function (o) {
+                            	console.log(o)
+                            	for (var i = 0; i < o.length; i++)
+                            {
+                                $('#tab').append('<tr><td>' +o[i][0]+ '</td><td>'  +o[i][1]+ '</td><td>'  +o[i][2]+ '</td><td>'  +o[i][3]+ '</td><td>'  +o[i][4]+ '</td><td>'  +o[i][5]+ '</td></tr> ')
+                            }
+                            $('#data').DataTable();
+
+                        });
+});
+           
+    </script>
+
+<h2>Consumi</h2>
+<table id="data2">
+	<thead>
+	    
+		<th>prodotto</th>
+		<th>quantità consumata </th>
+		
+	
+	</thead>
+	<tbody id="tab2">
+
+	</tbody>
+</table>
+    <script>
+$( document ).ready(function() {
+
+
+                        $.ajax({
+                            url: " magazzino_consumo.json",
+                            dataType: "json",
+                            timeout: 800000,
+                            cache: true}).done(function (o) {
+                            	console.log(o)
+                            	for (var i = 0; i < o.length; i++)
+                            {
+                                $('#tab2').append('<tr><td>' +o[i][1]+ '</td><td>'  +o[i][2]+ '</td></tr> ')
+                            }
+                            $('#data2').DataTable();
+
+                        });
+});
+           
+    </script>

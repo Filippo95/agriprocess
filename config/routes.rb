@@ -3,6 +3,13 @@ Rails.application.routes.draw do
   get 'statistiche/costo_per_coltura'
 
   get 'statistiche/costo_per_operazione'
+  
+  get 'statistiche/magazzino'
+  
+  get 'statistiche/magazzino_consumo'
+  
+  
+  get 'statistiche/magazzino_acquisti'
 
 
   authenticated :user do

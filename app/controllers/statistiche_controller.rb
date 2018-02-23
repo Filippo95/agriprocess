@@ -35,7 +35,7 @@ group by Categoria,operaziones.nome"
   end
   
   
-def giacenza_magazzino
+def magazzino
     sql = ""
     records_array = ActiveRecord::Base.connection.execute(sql)
 
@@ -44,5 +44,34 @@ def giacenza_magazzino
       format.json { render json: records_array}
     end
   end
+  
+  def magazzino_consumo
+    sql = "Select prodottos.id,prodottos.nome, SUM(prodotto_trattamentos.dose_ha*colturas.estensione_ha) as consumo FROM trattamentos,colturas,prodotto_trattamentos,prodottos WHERE trattamentos.id_coltura=colturas.id AND prodotto_trattamentos.id_prodotto=prodottos.id AND prodotto_trattamentos.id_trattamento=trattamentos.id GROUP BY prodottos.id,prodottos.nome,prodotto_trattamentos.dose_ha,colturas.estensione_ha"
+    records_array = ActiveRecord::Base.connection.execute(sql)
 
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: records_array}
+    end
+  end
+  
+  def magazzino_acquisti
+    sql = "SELECT prodottos.id, prodottos.nome, prezzos.prezzo_fattura, prezzos.sconto, SUM(caricos.quantit) as totale,ROUND((prezzos.prezzo_fattura+(prezzos.prezzo_fattura*prezzos.sconto)/100)*SUM(caricos.quantit),2) as stima FROM `caricos`, prodottos,prezzos WHERE caricos.id_prodotto=prodottos.id AND prodottos.id=prezzos.id_prodotto AND  YEAR(prezzos.data) = YEAR(CURDATE()) GROUP BY prodottos.id, prodottos.nome, prezzos.prezzo_fattura, prezzos.sconto"
+    records_array = ActiveRecord::Base.connection.execute(sql)
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: records_array}
+    end
+  end
+  
+   def magazzino
+    sql = "Select prodottos.id,prodottos.nome, prezzos.prezzo_fattura, prezzos.sconto,SUM(prodotto_trattamentos.dose_ha*colturas.estensione_ha) as Q_consumata , SUM(caricos.quantit) as Q_caricata,SUM(caricos.quantit)-SUM(prodotto_trattamentos.dose_ha*colturas.estensione_ha) as Giacenza,ROUND((prezzos.prezzo_fattura+(prezzos.prezzo_fattura*prezzos.sconto)/100)*SUM(caricos.quantit)-SUM(prodotto_trattamentos.dose_ha*colturas.estensione_ha),2) as stima FROM trattamentos,colturas,prodotto_trattamentos,prodottos,`caricos`,prezzos WHERE trattamentos.id_coltura=colturas.id AND prodotto_trattamentos.id_prodotto=prodottos.id AND prodotto_trattamentos.id_trattamento=trattamentos.id AND caricos.id_prodotto=prodottos.id AND prodottos.id=prezzos.id_prodotto  AND  YEAR(prezzos.data) = YEAR(CURDATE()) GROUP BY prodottos.id,prodottos.nome,prodotto_trattamentos.dose_ha,colturas.estensione_ha,prezzos.prezzo_fattura, prezzos.sconto"
+    records_array = ActiveRecord::Base.connection.execute(sql)
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: records_array}
+    end
+  end
 end
