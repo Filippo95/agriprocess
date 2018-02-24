@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   
   get 'statistiche/magazzino_consumo'
   
-  
+  get 'statistiche/price_presence'
   get 'statistiche/magazzino_acquisti'
 
 

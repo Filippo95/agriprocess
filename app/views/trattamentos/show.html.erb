@@ -300,13 +300,38 @@ $('#tableProdotti').DataTable();
                        dataType: "json",
                        timeout: 800000,
                        cache: true}).done(function (o) {
+                         
+                         
+                         
+                         var price_presence=$.ajax({
+                            url:"/statistiche/price_presence.json" ,
+                            async: false,
+                            dataType: 'json'
+                            }).responseJSON;
+                         console.log(price_presence);
+                         
+                         
+                         var img="";
                        for (var i = 0; i < o.length; i++)
                        {
-                           $('#prodottobody').append('<tr><td>' + o[i].nome + '</td><td>' + o[i].avversit + '</td><td>  <button type="button"  class="btn btn-primary" onClick="ProdottosDispose(\''+o[i].id+'\',\''+o[i].nome+'\')">Seleziona</button></td></tr> ');
-                       }
+                         for(var k=0;k<price_presence.length;k++)
+                         {
+                           console.log(price_presence.length);
+                           if(o[i].id==price_presence[k][0])
+                           {
+                             if(price_presence[k][2]=="true")
+                             {img="<img src='http://vps505525.ovh.net:44400/trattamenti_webservices/assets/images/green_ball.png'>"}
+                             else{img="<img src='http://vps505525.ovh.net:44400/trattamenti_webservices/assets/images/red_ball.png'>"}
+                             
+                             $('#prodottobody').append('<tr><td>' + o[i].nome + '</td><td>' + o[i].avversit + '</td><td>' + img + '</td><td>  <button type="button"  class="btn btn-primary" onClick="ProdottosDispose(\''+o[i].id+'\',\''+o[i].nome+'\')">Seleziona</button></td></tr> ');
+                           }
+                         }
+                        }
+                        
                        $('#prodotto').DataTable();
                    });
                });
+             
            </script>
          <div class="modal-body">
            <table id="prodotto" class="display" cellspacing="0" width="100%">
@@ -315,6 +340,7 @@ $('#tableProdotti').DataTable();
                    <th>Nome</th>
                    <th>avversità</th>
 
+                   <th>esiste il prezzo</th>
                    <th></th>
 
                </tr>

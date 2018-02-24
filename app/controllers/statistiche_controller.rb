@@ -46,7 +46,7 @@ def magazzino
   end
   
   def magazzino_consumo
-    sql = "Select prodottos.id,prodottos.nome, SUM(prodotto_trattamentos.dose_ha*colturas.estensione_ha) as consumo FROM trattamentos,colturas,prodotto_trattamentos,prodottos WHERE trattamentos.id_coltura=colturas.id AND prodotto_trattamentos.id_prodotto=prodottos.id AND prodotto_trattamentos.id_trattamento=trattamentos.id GROUP BY prodottos.id,prodottos.nome,prodotto_trattamentos.dose_ha,colturas.estensione_ha"
+    sql = "Select prodottos.id,prodottos.nome, ROUND(SUM(prodotto_trattamentos.dose_ha*colturas.estensione_ha),2) as consumo FROM trattamentos,colturas,prodotto_trattamentos,prodottos WHERE trattamentos.id_coltura=colturas.id AND prodotto_trattamentos.id_prodotto=prodottos.id AND prodotto_trattamentos.id_trattamento=trattamentos.id GROUP BY prodottos.id,prodottos.nome,prodotto_trattamentos.dose_ha,colturas.estensione_ha"
     records_array = ActiveRecord::Base.connection.execute(sql)
 
     respond_to do |format|
@@ -71,6 +71,15 @@ def magazzino
 
     respond_to do |format|
       format.html # show.html.erb
+      format.json { render json: records_array}
+    end
+  end
+  
+  def price_presence
+    sql = "SELECT prodottos.id,prodottos.nome, 'true' FROM `prodottos`,prezzos WHERE prodottos.id=prezzos.id_prodotto UNION Select prodottos.id,prodottos.nome,'false' From prodottos WHERE prodottos.id NOT IN( SELECT prodottos.id FROM `prodottos`,prezzos WHERE prodottos.id=prezzos.id_prodotto)"
+    records_array = ActiveRecord::Base.connection.execute(sql)
+
+    respond_to do |format|
       format.json { render json: records_array}
     end
   end
