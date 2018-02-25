@@ -59,20 +59,15 @@ $( document ).ready(function() {
 
 
 
-  $.ajax({
-                            url: "https://trattamenti-web-service-filippo95.c9users.io/charts.php?query=carburante",
-                            dataType: "text",
-                            timeout: 800000,
-                            cache: true}).done(function (o) {
-                            console.log(o);
-                            $('#data_carburante').append(o);
-                          chart();
-                        });
+ 
                         
-                        
-function chart(){
+
              
-  var dater=$("#data_carburante").html();
+  var dater=$.ajax({
+                            url:"https://trattamenti-web-service-filippo95.c9users.io/charts.php?query=carburante" ,
+                            async: false,
+                            dataType: 'json'
+                            }).responseJSON;
 console.log("ajax finisched");
 console.log(dater);
   
@@ -110,7 +105,7 @@ Highcharts.chart('container', {
 
 
 
-}
+
 
   
   
