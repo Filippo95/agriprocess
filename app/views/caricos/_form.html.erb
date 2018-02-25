@@ -71,7 +71,7 @@
         </div>
       </div>
   <div class="field"><label for="carico_quantit">Quantità</label>
-    <%= form.text_field :quantit, id: :carico_quantit %>
+    <%= form.text_field :quantit, id: :carico_quantit , :pattern=>'[-+]?[0-9]*\.?[0-9]*.'%>
   </div>
 
   <div class="actions">

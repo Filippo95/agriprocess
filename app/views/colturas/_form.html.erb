@@ -21,7 +21,7 @@
 
   <div class="field">
     <%= form.label :estensione_ha %>
-    <%= form.text_field :estensione_ha, id: :coltura_estensione_ha %>
+    <%= form.text_field :estensione_ha, id: :coltura_estensione_ha , :pattern=>'[-+]?[0-9]*\.?[0-9]*.'%>
   </div>
 
 

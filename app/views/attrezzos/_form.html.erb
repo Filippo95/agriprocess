@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= form.label :costo_carburante %>
-    <%= form.text_field :costo_carburante, id: :attrezzo_costo_carburante %>(euro/litro)
+    <%= form.text_field :costo_carburante, id: :attrezzo_costo_carburante, :pattern=>'[-+]?[0-9]*\.?[0-9]*.'%>(euro/litro)
   </div>
 
   <div class="field">

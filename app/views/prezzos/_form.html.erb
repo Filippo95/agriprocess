@@ -79,11 +79,11 @@
 
   <div class="field">
     <%= form.label :prezzo_fattura %>
-    <%= form.text_field :prezzo_fattura, id: :prezzo_prezzo_fattura %>
+    <%= form.text_field :prezzo_fattura, id: :prezzo_prezzo_fattura , :pattern=>'[-+]?[0-9]*\.?[0-9]*.'%>
   </div>
 
   <div class="field"><label for="prezzo_sconto">Sconto %</label>
-    <%= form.text_field :sconto, id: :prezzo_sconto %>
+    <%= form.text_field :sconto, id: :prezzo_sconto, :pattern=>'[-+]?[0-9]*\.?[0-9]*.' %>
   </div>
 
   <div class="actions">
