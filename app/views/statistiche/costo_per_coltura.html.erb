@@ -62,13 +62,7 @@ $( document ).ready(function() {
  
                         
 
-             
-  var dater=$.ajax({
-                            url:"http://trattamenti-web-service-filippo95.c9users.io/charts.php?query=carburante" ,
-                            async: false
-                            }).responseText;
-console.log("ajax finisched");
-console.log(dater);
+
 $('#container').append(dater);
   $( document ).ajaxComplete(function() {
       console.log("ajax fatto");
@@ -99,7 +93,7 @@ Highcharts.chart('container', {
     series: [{
         name: 'Brands',
         colorByPoint: true,
-        data: <%="[{name:'Mele Fuji Crevalcore',y:5.44},{name:'Mele Fuji Renazzo',y:2.72}]" %>
+        data: ''
     }]
 });
   });
