@@ -9,7 +9,7 @@ class StatisticheController < ApplicationController
     end
   end
 def costo_per_operazione
-    sql = "SELECT  cat_coltures.nome AS Categoria , operaziones.nome AS Operazione, ROUND(SUM( DISTINCT colturas.estensione_ha*prodotto_trattamentos.dose_ha*prezzos.prezzo_fattura),2) FROM trattamentos,operazione_trattamentos,colturas,prodotto_trattamentos,prodottos,prezzos,operaziones,cat_coltures WHERE 	colturas.id=						trattamentos.id_coltura AND 	trattamentos.id=					operazione_trattamentos.id_trattamento AND 	trattamentos.id=					prodotto_trattamentos.id_trattamento AND 	prodotto_trattamentos.id_prodotto=	prodottos.id AND 	prezzos.id_prodotto=				prodottos.id AND 	operaziones.id=						operazione_trattamentos.id_operazione AND 	cat_coltures.id=					colturas.id_cat group by Categoria,operaziones.nome"
+    sql = "SELECT  cat_coltures.nome AS Categoria , operaziones.nome AS Operazione, ROUND(SUM( DISTINCT colturas.estensione_ha*prodotto_trattamentos.dose_ha*(prezzos.prezzo_fattura-(prezzos.prezzo_fattura*prezzos.sconto/100))),2) FROM trattamentos,operazione_trattamentos,colturas,prodotto_trattamentos,prodottos,prezzos,operaziones,cat_coltures WHERE 	colturas.id=						trattamentos.id_coltura AND 	trattamentos.id=					operazione_trattamentos.id_trattamento AND 	trattamentos.id=					prodotto_trattamentos.id_trattamento AND 	prodotto_trattamentos.id_prodotto=	prodottos.id AND 	prezzos.id_prodotto=				prodottos.id AND 	operaziones.id=						operazione_trattamentos.id_operazione AND 	cat_coltures.id=					colturas.id_cat group by Categoria,operaziones.nome"
     records_array = ActiveRecord::Base.connection.execute(sql)
 
     respond_to do |format|
