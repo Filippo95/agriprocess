@@ -1,6 +1,13 @@
+<!-- Datatable-->
 <script  type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
+<!-- toogle-->
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
 <%= form_with(model: prezzo, local: true) do |form| %>
   <% if prezzo.errors.any? %>
     <div id="error_explanation">
@@ -76,6 +83,7 @@
         </div>
       </div>
     </div>
+    <input type="checkbox" checked data-toggle="toggle" data-size="large">
 
   <div class="field">
     <%= form.label :prezzo_fattura %>

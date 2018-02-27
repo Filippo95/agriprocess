@@ -43,10 +43,12 @@
 
 	</tbody>
 </table>
+
+<span><h3>Totale </h3><h4 id="tot"></h4></span>
     <script>
 $( document ).ready(function() {
 
-
+var sum=0;
                         $.ajax({
                             url: " magazzino.json",
                             dataType: "json",
@@ -56,9 +58,12 @@ $( document ).ready(function() {
                             	for (var i = 0; i < o.length; i++)
                             {
                                 $('#tab3').append('<tr><td>' +o[i][0]+ '</td><td>'  +o[i][1]+ '</td><td>'  +o[i][2]+ '</td><td>'  +o[i][3]+ '</td><td>'  +o[i][4]+ '</td><td>'  +o[i][5]+ '</td><td>'  +o[i][6]+ '</td><td>'  +o[i][7]+ '</td></tr> ')
+                               sum+=o[i][7];
                             }
                             $('#data3').DataTable();
-
+                            console.log(sum);
+                            $("#tot").append(sum);
+                            
                         });
 });
            
