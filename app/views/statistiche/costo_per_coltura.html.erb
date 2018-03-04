@@ -1,3 +1,79 @@
+
+	<style type="text/css">
+
+	.demo-container {
+		position: relative;width: 100%;
+height: 400px;
+	}
+
+	#placeholder {width: 100%;
+height: 400px;
+	}
+	
+	#placeholder2 {width: 100%;
+height: 400px;
+	}
+	#menu {
+		position: absolute;
+		top: 20px;
+		left: 625px;
+		bottom: 20px;
+		right: 20px;
+		width: 200px;
+	}
+
+	#menu button {
+		display: inline-block;
+		width: 200px;
+		padding: 3px 0 2px 0;
+		margin-bottom: 4px;
+		background: #eee;
+		border: 1px solid #999;
+		border-radius: 2px;
+		font-size: 16px;
+		-o-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		-ms-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+		cursor: pointer;
+	}
+
+	#description {
+		margin: 15px 10px 20px 10px;
+	}
+
+	#code {
+		display: block;
+		width: 870px;
+		padding: 15px;
+		margin: 10px auto;
+		border: 1px dashed #999;
+		background-color: #f8f8f8;
+		font-size: 16px;
+		line-height: 20px;
+		color: #666;
+	}
+
+	ul {
+		font-size: 10pt;
+	}
+
+	ul li {
+		margin-bottom: 0.5em;
+	}
+
+	ul.options li {
+		list-style: none;
+		margin-bottom: 1em;
+	}
+
+	ul li i {
+		color: #999;
+	}
+
+	</style>
+
 <h1>Costo per Coltura</h1>
 
     <!-- Ignite UI Required Combined CSS Files -->
@@ -23,10 +99,18 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-    
 
+	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/jquery.flot.js"></script>
+	<script language="javascript" type="text/javascript" src="http://www.flotcharts.org/flot/jquery.flot.pie.js"></script>
 
+		<h3 id="title">Costo Carburante</h3>
+<div class="demo-container">
+			<div id="placeholder" class="demo-placeholder"></div>
+</div>
+		<h3 id="title">Costo Prodotti</h3>
+<div class="demo-container">
+			<div id="placeholder2" class="demo-placeholder"></div>
+</div>
 <table id="data">
 	<thead>
 		<th>Coltura</th>
@@ -43,61 +127,46 @@
 $( document ).ready(function() {
 
 
-            $.ajax({
-                            url: "costo_per_coltura.json",
-                            dataType: "json",
-                            timeout: 800000,
-                            cache: true}).done(function (o) {
-                            	console.log(o)
-                            	for (var i = 0; i < o.length; i++)
+            $.ajax({    url: "costo_per_coltura.json",
+                        dataType: "json",
+                        timeout: 800000,
+                        cache: true}).done(function (o) {
+                        console.log(o)
+                        for (var i = 0; i < o.length; i++)
                             {
                                 $('#tab').append('<tr><td>' +o[i][0]+ '</td><td>'  +o[i][1]+ '</td><td>'  +o[i][2]+ '</td></tr> ')
                             }
                             $('#data').DataTable();
 
                         });
+   
 
 
+           
+                        	// Example Data
 
- 
-                        
-
-
-$('#container').append(dater);
-  $( document ).ajaxComplete(function() {
-      console.log("ajax fatto");
-      console.log(dater);
-Highcharts.chart('container', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Browser market shares January, 2015 to May, 2015'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
+		var data = <%=raw @data%>
+$.plot('#placeholder', data, {
+    series: {
         pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: false
-            },
-            showInLegend: true
+            show: true
         }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: ''
-    }]
+    }
 });
-  });
-  
+
+		
+			
+			
+	var	datar = <%=raw @prodotti%>
+$.plot('#placeholder2', datar, {
+    series: {
+        pie: {
+            show: true
+        }
+    }
+});
+
+
 
 
 
