@@ -150,11 +150,7 @@ function PrintPDF(){
 
 
         var data = [
-            ["25/01/2019", "Pesche pasta bianca", "10","X","","","", "DDT","tutte","10"],
-            ["25/01/2019", "Pesche pasta gialla", "10","","","X","", "DDT","tutte","10"],
-            ["25/01/2019", "Pere Abate", "10","","","X","", "DDT","tutte","10"],
-            ["25/01/2019", "Mele Pink Lady", "10","","X","","", "DDT","tutte","10"],
-            ["25/01/2019", "Pesche pasta bianca", "10","","","","X", "DDT","tutte","10"],
+           <%=raw @export%>
         ];
         var doc = new jsPDF();
         doc.autoTable(columns, data);

@@ -4,13 +4,13 @@ class StatisticheController < ApplicationController
     records_array = ActiveRecord::Base.connection.execute(sql)
     require 'net/http'
 
-url = URI.parse('http://trattamenti-web-service-filippo95.c9users.io/charts.php?query=carburante')
+url = URI.parse('http://vps505525.ovh.net:44400/trattamenti_webservices/charts.php?query=carburante')
 req = Net::HTTP::Get.new(url.to_s)
 res = Net::HTTP.start(url.host, url.port) {|http|
   http.request(req)
 }
 @data=res.body
-url = URI.parse('http://trattamenti-web-service-filippo95.c9users.io/charts.php?query=prodotti')
+url = URI.parse('http://vps505525.ovh.net:44400/trattamenti_webservices/charts.php?query=prodotti')
 req = Net::HTTP::Get.new(url.to_s)
 res = Net::HTTP.start(url.host, url.port) {|http|
   http.request(req)
@@ -80,4 +80,17 @@ def magazzino
       format.json { render json: records_array}
     end
   end
+  
+  def export_qdc
+
+    require 'net/http'
+
+    url = URI.parse('http://vps505525.ovh.net:44400/trattamenti_webservices/export_qdc.php')
+    req = Net::HTTP::Get.new(url.to_s)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+      http.request(req)
+    }
+    @data=res.body
+  end
+  
 end

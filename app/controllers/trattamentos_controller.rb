@@ -5,6 +5,15 @@ class TrattamentosController < ApplicationController
   # GET /trattamentos.json
   def index
     @trattamentos = Trattamento.all
+    
+      require 'net/http'
+
+    url = URI.parse('http://vps505525.ovh.net:44400/trattamenti_webservices/export_qdc.php')
+    req = Net::HTTP::Get.new(url.to_s)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+      http.request(req)
+    }
+    @export=res.body
   end
 
   # GET /trattamentos/1
