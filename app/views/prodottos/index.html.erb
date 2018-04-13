@@ -1,3 +1,4 @@
+
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.css"/>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/r-2.2.1/datatables.min.js"></script>
 <script src="libs/jspdf.debug.js"></script>
@@ -16,6 +17,7 @@
       <th>Nome</th>
       <th>Avversità</th>
       <th >Categoria</th>
+      <th >Principio Attivo</th>
       <th></th><th></th><th></th>
     </tr>
   </thead>
@@ -26,6 +28,8 @@
         <td><%= prodotto.nome %></td>
         <td><%= prodotto.avversit %></td>
         <td id="cat"><%= prodotto.id_cat %></td>
+        
+        <td><%= prodotto.principio_attivo %></td>
         <td><%= link_to 'Visualizza', prodotto, class:"btn btn-primary" %></td>
         <td><%= link_to 'Modifica', edit_prodotto_path(prodotto), class:"btn btn-warning" %></td>
         <td><%= link_to 'Elimina', prodotto, method: :delete, data: { confirm: 'Sei sicuro?' }, class:"btn btn-danger" %></td>

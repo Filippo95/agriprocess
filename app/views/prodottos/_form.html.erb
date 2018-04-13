@@ -1,3 +1,4 @@
+
 <script  type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
@@ -83,6 +84,10 @@
         
         
       </div>
+        <div class="field">
+    <%= form.label :principio_attivo %>
+    <%= form.text_area :principio_attivo, id: :prodotto_principio_attivo %>
+  </div>
   <div class="actions">
     <%= form.submit %>
   </div>
