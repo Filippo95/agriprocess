@@ -32,6 +32,8 @@
 	<thead>
 	    <th>ID</th>
 		<th>prodotto</th>
+		
+		<th>principio attivo </th>
 		<th>prezzo fattura </th>
 		<th>sconto %</th>
 		<th>Qauntità consumata</th>
@@ -57,7 +59,7 @@ var sum=0;
                             	console.log(o)
                             	for (var i = 0; i < o.length; i++)
                             {
-                                $('#tab3').append('<tr><td>' +o[i][0]+ '</td><td>'  +o[i][1]+ '</td><td>'  +o[i][2]+ '</td><td>'  +o[i][3]+ '</td><td>'  +o[i][4]+ '</td><td>'  +o[i][5]+ '</td><td>'  +o[i][6]+ '</td><td>'  +o[i][7]+ '</td></tr> ')
+                                $('#tab3').append('<tr><td>' +o[i][0]+ '</td><td>'  +o[i][1]+ '</td><td>'  +o[i][2]+ '</td><td>'  +o[i][3]+ '</td><td>'  +o[i][4]+ '</td><td>'  +o[i][5]+ '</td><td>'  +o[i][6]+ '</td><td>'  +o[i][7]+ '</td><td>'  +o[i][8]+ '</td></tr> ')
                                sum+=o[i][7];
                             }
                             $('#data3').DataTable();
