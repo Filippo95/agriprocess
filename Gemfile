@@ -54,3 +54,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'http'
+gem 'jquery-datatables-rails', '~> 3.4.0', git: 'git://github.com/rweng/jquery-datatables-rails.git'
+gem 'bootstrap-generators', '~> 3.3.4'
