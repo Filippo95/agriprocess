@@ -32,7 +32,6 @@
 	<thead>
 	    <th>ID</th>
 		<th>prodotto</th>
-		
 		<th>principio attivo </th>
 		<th>prezzo fattura </th>
 		<th>sconto %</th>
@@ -42,15 +41,55 @@
 	    <th>Stima (euro)</th>
 	</thead>
 	<tbody id="tab3">
-
+	    <%@prodotti.each do |prodotto| %>
+	    <tr>
+	        <%
+	        @qtused=0
+	        @qtupdated=0
+	        @prodottotrattamento.where(id_prodotto: prodotto.id).each do |prodotto_trattamento|
+	           @trattamenti.where(id: prodotto_trattamento.id_trattamento).each do |trattamento|
+	                @qtused+=prodotto_trattamento.dose_ha*@colture.where(id: trattamento.id_coltura).first.estensione_ha
+	           end
+	        end
+	        
+	        @carichi.where(id_prodotto: prodotto.id).each do |carico|
+	           @qtupdated+=carico.quantit 
+	        end
+	        
+	        @rim=@qtupdated-@qtused
+	        
+	        if @prezzi.where(id_prodotto: prodotto.id).first.nil?
+	            @prezzo="prezzo non inseirto"
+	            @sconto="prezzo non inseirto"
+	            @stima="prezzo non inseirto"
+	       else
+	           @prezzo= @prezzi.where(id_prodotto: prodotto.id).first.prezzo_fattura
+	           @sconto=@prezzi.where(id_prodotto: prodotto.id).first.sconto
+	           @prezzo_scontato=@prezzo-(@prezzo*@sconto)/100
+	           @stima=@rim*@prezzo_scontato
+	       end
+	        
+	        %>
+	        <td><%=prodotto.id%></td>
+	        <td><%=prodotto.nome%></td>
+	        <td><%=prodotto.principio_attivo%></td>
+	        <td><%=@prezzo%></td>
+	        <td><%=@sconto%></td>
+	        
+	        <td><%=@qtused%></td>
+	        <td><%=@qtupdated%></td>
+	        <td><%=@rim%></td>
+	        <td><%=@stima%></td>
+	    </tr>
+	    <% end %>
 	</tbody>
 </table>
 
 <span><h3>Totale </h3><h4 id="tot"></h4></span>
     <script>
 $( document ).ready(function() {
-
-var sum=0;
+$('#data3').DataTable();
+/*var sum=0;
                         $.ajax({
                             url: " magazzino.json",
                             dataType: "json",
@@ -66,7 +105,7 @@ var sum=0;
                             console.log(sum);
                             $("#tot").append(sum.toFixed(2));
                             
-                        });
+                        });*/
 });
            
     </script>

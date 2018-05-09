@@ -62,7 +62,14 @@ def magazzino
     end
   end
   
-   def magazzino
+  def magazzino
+    @prodotti=Prodotto.where("id<?",10000000)
+    @trattamenti=Trattamento.where("id<?",10000000)
+    @prodottotrattamento=ProdottoTrattamento.where("id<?",10000000)
+    @carichi=Carico.where("id<?",10000000)
+    @colture=Coltura.where("id<?",10000000)
+    @prezzi=Prezzo.where("id<?",10000000)
+    
     sql = "select prodottos.id, prodottos.nome,prodottos.principio_attivo, prezzos.prezzo_fattura, prezzos.sconto, ROUND(SUM( Distinct prodotto_trattamentos.dose_ha*colturas.estensione_ha),2) as Q_consumata , ROUND(SUM( DISTINCT caricos.quantit),2) as Q_caricata,ROUND(SUM( DISTINCT caricos.quantit)-SUM( Distinct prodotto_trattamentos.dose_ha*colturas.estensione_ha),2) as Giacenza, ROUND((prezzos.prezzo_fattura-(prezzos.prezzo_fattura*prezzos.sconto)/100)*(ROUND(SUM( DISTINCT caricos.quantit)-SUM(Distinct prodotto_trattamentos.dose_ha*colturas.estensione_ha),2)),2) as stima FROM trattamentos,colturas,prodotto_trattamentos,prodottos,caricos,prezzos WHERE trattamentos.id_coltura=colturas.id AND prodotto_trattamentos.id_prodotto=prodottos.id AND prodotto_trattamentos.id_trattamento=trattamentos.id AND caricos.id_prodotto=prodottos.id AND prodottos.id=prezzos.id_prodotto AND YEAR(prezzos.data) = YEAR(CURDATE()) GROUP BY prodottos.id, prodottos.nome,prezzos.prezzo_fattura,prezzos.sconto union select prodottos.id,prodottos.nome,prodottos.principio_attivo, prezzos.prezzo_fattura, prezzos.sconto,'0' as Q_consumata , ROUND(SUM(caricos.quantit),2) as Q_caricata,ROUND(SUM(caricos.quantit),2) as Giacenza,ROUND((prezzos.prezzo_fattura+(prezzos.prezzo_fattura*prezzos.sconto)/100)*SUM(caricos.quantit),2) as stima FROM prodottos,`caricos`,prezzos WHERE  prodottos.id NOT IN  (select prodotto_trattamentos.id_prodotto                              from prodotto_trattamentos) AND caricos.id_prodotto=prodottos.id AND prodottos.id=prezzos.id_prodotto  AND  YEAR(prezzos.data) = YEAR(CURDATE()) GROUP BY prodottos.id,prodottos.nome,prezzos.prezzo_fattura, prezzos.sconto"
     records_array = ActiveRecord::Base.connection.execute(sql) 
 
