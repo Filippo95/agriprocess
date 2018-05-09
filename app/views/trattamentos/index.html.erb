@@ -33,9 +33,13 @@
       <tr class="record" id="<%= trattamento.id%>">
         <td id="ID"><%= trattamento.id%></td>
         <td><%= trattamento.data.strftime("%d/%m/%Y")%></td>
-        <td id="coltura"><%= trattamento.id_coltura %></td>
+        <td id="coltura"><%= @colturas.where(id: trattamento.id_coltura).first.nome %></td>
        
-        <td id="prodotti"></td>
+        <td id="prodotti">
+         <% @prodotto_trattamentos.where(id_trattamento: trattamento.id).each do |prodotto_trattamento| %>
+           <%=@prodottos.where(id: prodotto_trattamento.id_prodotto).first.nome%>
+          <%end%>
+        </td>
         <td><%= link_to 'Visualizza', trattamento , class:"btn btn-primary" %></td>
         <td><%= link_to 'Modifica', edit_trattamento_path(trattamento) ,class: "btn btn-warning" %></td>
         <td><%= link_to 'Elimina', trattamento, method: :delete, data: { confirm: 'Sei sicuro di voler eliminare il trattamento?' },class: "btn btn-danger" %></td>  </tr>
@@ -50,99 +54,11 @@
 </span>
 <script>
 $(document).ready(function () {
-var trattamenti_operazioni=$.ajax({
-              url:"/operazione_trattamentos.json" ,
-              async: false,
-              dataType: 'json'
-          }).responseJSON;
-
-
-          var operazioni=$.ajax({
-              url:"/operaziones.json" ,
-              async: false,
-              dataType: 'json'
-          }).responseJSON;
-          
-          
-          var trattamenti_prodotti=$.ajax({
-                url:"/prodotto_trattamentos.json" ,
-                async: false,
-                dataType: 'json'
-            }).responseJSON;
-
-
-            var prodotti=$.ajax({
-                url:"/prodottos.json" ,
-                async: false,
-                dataType: 'json'
-            }).responseJSON;
-            
-            
-  $("tr").each(function() {
-    console.log("faccio");
-          
-
-
-            for (var i = 0; i < trattamenti_operazioni.length; i++)
-            {
-
-              for (var k = 0; k < operazioni.length; k++)
-              {
-                if(trattamenti_operazioni[i].id_operazione==operazioni[k].id && trattamenti_operazioni[i].id_trattamento==$(this).find('#ID').text() )
-                {
-                $(this).find('#operazioni').append(' ' + operazioni[k].nome +', ');
-                }
-              }
-            }
-            
-
-
-              for (var i = 0; i < trattamenti_prodotti.length; i++)
-              {
-                for (var k = 0; k < prodotti.length; k++)
-                {
-                  if(prodotti[k].id==trattamenti_prodotti[i].id_prodotto && trattamenti_prodotti[i].id_trattamento==$(this).find('#ID').text())
-                  {
-                    $(this).find(' #prodotti').append(' ' + prodotti[k].nome +', ');
-                  }
-                }
-              }
-
-
-                var id=$(this);
-              $.ajax({
-                  url: "/colturas.json",
-                  dataType: "json",
-                  timeout: 800000,
-                  cache: true}).done(function (o) {
-                    for (var i = 0; i < o.length; i++)
-                    {
-                      if(o[i].id==  id.find(' #coltura').text())
-                      {
-                         id.find(' #coltura').text(o[i].nome)
-                      }
-                    }
-                  });
-
-                  var id=$(this);
-                  $.ajax({
-                      url: "/attrezzos.json",
-                      dataType: "json",
-                      timeout: 800000,
-                      cache: true}).done(function (o) {
-                        for (var i = 0; i < o.length; i++)
-                        {
-                          if(o[i].id==  id.find(" #attrezzo").text())
-                          {
-                             id.find(' #attrezzo').text(o[i].nome)
-                          }
-                        }
-                      });
-          });
     $('#table').DataTable();
 
 
 } );
+/*
 function PrintPDF(){
   var columns = ["Data", "Coltura", "est.ha", "s","t","if","r","Prodotto","Avversità","Dose per Ha"];
 
@@ -157,5 +73,5 @@ function PrintPDF(){
         doc.output("dataurlnewwindow");
 
 }
-
+*/
 </script>

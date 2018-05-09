@@ -5,7 +5,9 @@ class TrattamentosController < ApplicationController
   # GET /trattamentos.json
   def index
     @trattamentos = Trattamento.all
-    
+    @colturas=Coltura.where("id<?",10000000000000000000000000000000000000000000000000)
+    @prodotto_trattamentos=ProdottoTrattamento.where("id<?",100000000000000000000000000000000000000000000000)
+    @prodottos=Prodotto.where("id<?",10000000000000000000000000000000000000000000000000000000)
       require 'net/http'
 
     url = URI.parse('http://vps505525.ovh.net:44400/trattamenti_webservices/export_qdc.php')
