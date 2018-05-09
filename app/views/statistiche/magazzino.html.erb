@@ -48,7 +48,12 @@
 	        @qtupdated=0
 	        @prodottotrattamento.where(id_prodotto: prodotto.id).each do |prodotto_trattamento|
 	           @trattamenti.where(id: prodotto_trattamento.id_trattamento).each do |trattamento|
-	                @qtused+=prodotto_trattamento.dose_ha*@colture.where(id: trattamento.id_coltura).first.estensione_ha
+	               if(!trattamento.id_coltura.nil?)
+	                    @qtused+=prodotto_trattamento.dose_ha*@colture.where(id: trattamento.id_coltura).first.estensione_ha
+	               else
+	                    @qtused+=0
+	               end
+	                
 	           end
 	        end
 	        
