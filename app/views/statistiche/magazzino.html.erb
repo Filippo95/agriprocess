@@ -69,7 +69,11 @@
 	            @stima="prezzo non inseirto"
 	       else
 	           @prezzo= @prezzi.where(id_prodotto: prodotto.id).first.prezzo_fattura
-	           @sconto=@prezzi.where(id_prodotto: prodotto.id).first.sconto
+	           if @prezzi.where(id_prodotto: prodotto.id).first.sconto.nil?
+	               @sconto=0
+	           else
+	              @sconto=@prezzi.where(id_prodotto: prodotto.id).first.sconto 
+	           end
 	           @prezzo_scontato=@prezzo-(@prezzo*@sconto)/100
 	           @stima=@rim*@prezzo_scontato
 	       end
