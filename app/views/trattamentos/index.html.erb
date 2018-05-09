@@ -30,7 +30,12 @@
       <tr class="record" id="<%= trattamento.id%>">
         <td id="ID"><%= trattamento.id%></td>
         <td><%= trattamento.data.strftime("%d/%m/%Y")%></td>
-        <td id="coltura"><%= @colturas.where(id: trattamento.id_coltura).first.nome %></td>
+        <td id="coltura">
+        <%if !@colturas.where(id: trattamento.id_coltura).first.nil?%>
+        
+        <%=@colturas.where(id: trattamento.id_coltura).first.nome %>
+        <% end %>
+        </td>
        
         <td id="prodotti">
          <% @prodotto_trattamentos.where(id_trattamento: trattamento.id).each do |prodotto_trattamento| %>
