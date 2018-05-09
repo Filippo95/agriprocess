@@ -49,7 +49,7 @@
 	        @prodottotrattamento.where(id_prodotto: prodotto.id).each do |prodotto_trattamento|
 	           @trattamenti.where(id: prodotto_trattamento.id_trattamento).each do |trattamento|
 	               if(!trattamento.id_coltura.nil?)
-	                    @qtused+=prodotto_trattamento.dose_ha*@colture.where(id: trattamento.id_coltura).first.estensione_ha
+	                    @qtused+=(prodotto_trattamento.dose_ha*@colture.where(id: trattamento.id_coltura).first.estensione_ha).round(2)
 	               else
 	                    @qtused+=0
 	               end
@@ -74,8 +74,8 @@
 	           else
 	              @sconto=@prezzi.where(id_prodotto: prodotto.id).first.sconto 
 	           end
-	           @prezzo_scontato=@prezzo-(@prezzo*@sconto)/100
-	           @stima=@rim*@prezzo_scontato
+	           @prezzo_scontato=(@prezzo-(@prezzo*@sconto)/100).round(2)
+	           @stima=(@rim*@prezzo_scontato).round(2)
 	       end
 	        
 	        %>
