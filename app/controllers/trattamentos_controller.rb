@@ -29,10 +29,15 @@ class TrattamentosController < ApplicationController
   # GET /trattamentos/new
   def new
     @trattamento = Trattamento.new
+    @colture=Coltura.where("id<?",1000000000000)
+    @attrezzi=Attrezzo.where("id<?",1000000000000)
   end
 
   # GET /trattamentos/1/edit
   def edit
+    
+    @colture=Coltura.where("id<?",1000000000000)
+    @attrezzi=Attrezzo.where("id<?",1000000000000)
   end
 
   # POST /trattamentos

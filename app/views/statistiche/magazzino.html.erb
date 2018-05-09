@@ -40,61 +40,64 @@
 	    <th>Giacenza di Magazzino</th>
 	    <th>Stima (euro)</th>
 	</thead>
-	<tbody id="tab3">
-	    <%@prodotti.each do |prodotto| %>
-	    <tr>
-	        <%
-	        @qtused=0
-	        @qtupdated=0
-	        @prodottotrattamento.where(id_prodotto: prodotto.id).each do |prodotto_trattamento|
-	           @trattamenti.where(id: prodotto_trattamento.id_trattamento).each do |trattamento|
-	               if(!trattamento.id_coltura.nil?)
-	                    @qtused+=(prodotto_trattamento.dose_ha*@colture.where(id: trattamento.id_coltura).first.estensione_ha).round(2)
-	               else
-	                    @qtused+=0
-	               end
-	                
-	           end
-	        end
-	        
-	        @carichi.where(id_prodotto: prodotto.id).each do |carico|
-	           @qtupdated+=carico.quantit 
-	        end
-	        
-	        @rim=@qtupdated-@qtused
-	        
-	        if @prezzi.where(id_prodotto: prodotto.id).first.nil?
-	            @prezzo="prezzo non inseirto"
-	            @sconto="prezzo non inseirto"
-	            @stima="prezzo non inseirto"
-	       else
-	           @prezzo= @prezzi.where(id_prodotto: prodotto.id).first.prezzo_fattura
-	           if @prezzi.where(id_prodotto: prodotto.id).first.sconto.nil?
-	               @sconto=0
-	           else
-	              @sconto=@prezzi.where(id_prodotto: prodotto.id).first.sconto 
-	           end
-	           @prezzo_scontato=(@prezzo-(@prezzo*@sconto)/100).round(2)
-	           @stima=(@rim*@prezzo_scontato).round(2)
-	       end
-	        
-	        %>
-	        <td><%=prodotto.id%></td>
-	        <td><%=prodotto.nome%></td>
-	        <td><%=prodotto.principio_attivo%></td>
-	        <td><%=@prezzo%></td>
-	        <td><%=@sconto%></td>
-	        
-	        <td><%=@qtused%></td>
-	        <td><%=@qtupdated%></td>
-	        <td><%=@rim%></td>
-	        <td><%=@stima%></td>
-	    </tr>
-	    <% end %>
-	</tbody>
+      <tbody id="tab3">
+            <%@totale=0 %>
+            <%@prodotti.each do |prodotto| %>
+            <tr>
+                <%
+                @qtused=0
+                @qtupdated=0
+                @prodottotrattamento.where(id_prodotto: prodotto.id).each do |prodotto_trattamento|
+                   @trattamenti.where(id: prodotto_trattamento.id_trattamento).each do |trattamento|
+                       if(!trattamento.id_coltura.nil?)
+                            @qtused+=(prodotto_trattamento.dose_ha*@colture.where(id: trattamento.id_coltura).first.estensione_ha).round(2)
+                       else
+                            @qtused+=0
+                       end
+
+                   end
+                end
+
+                @carichi.where(id_prodotto: prodotto.id).each do |carico|
+                   @qtupdated+=carico.quantit
+                end
+
+                @rim=@qtupdated-@qtused
+
+                if @prezzi.where(id_prodotto: prodotto.id).first.nil?
+                    @prezzo="prezzo non inseirto"
+                    @sconto="prezzo non inseirto"
+                    @stima="prezzo non inseirto"
+               else
+                   @prezzo= @prezzi.where(id_prodotto: prodotto.id).first.prezzo_fattura
+                   if @prezzi.where(id_prodotto: prodotto.id).first.sconto.nil?
+                       @sconto=0
+                   else
+                      @sconto=@prezzi.where(id_prodotto: prodotto.id).first.sconto
+                   end
+                   @prezzo_scontato=(@prezzo-(@prezzo*@sconto)/100).round(2)
+                   @stima=(@rim.round(2)*@prezzo_scontato.round(2)).round(2)
+                   @totale+=@stima
+               end
+
+                %>
+                <td><%=prodotto.id%></td>
+                <td><%=prodotto.nome%></td>
+                <td><%=prodotto.principio_attivo%></td>
+                <td><%=@prezzo%></td>
+                <td><%=@sconto%></td>
+
+                <td><%=@qtused.round(2)%></td>
+                <td><%=@qtupdated.round(2)%></td>
+                <td><%=@rim.round(2)%></td>
+                <td><%=@stima%></td>
+            </tr>
+            <% end %>
+        </tbody>
+
 </table>
 
-<span><h3>Totale </h3><h4 id="tot"></h4></span>
+<span><h3>Totale </h3><h4 id="tot"><%=@totale.round(2)%></h4></span>
     <script>
 $( document ).ready(function() {
 $('#data3').DataTable();

@@ -1,6 +1,6 @@
 class OperazioneTrattamentosController < ApplicationController
   before_action :set_operazione_trattamento, only: [:show, :edit, :update, :destroy]
-
+skip_before_action :verify_authenticity_token
   # GET /operazione_trattamentos
   # GET /operazione_trattamentos.json
   def index

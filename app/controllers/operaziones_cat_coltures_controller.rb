@@ -1,6 +1,6 @@
 class OperazionesCatColturesController < ApplicationController
   before_action :set_operaziones_cat_colture, only: [:show, :edit, :update, :destroy]
-
+skip_before_action :verify_authenticity_token
   # GET /operaziones_cat_coltures
   # GET /operaziones_cat_coltures.json
   def index

@@ -1,6 +1,6 @@
 class ProdottoTrattamentosController < ApplicationController
   before_action :set_prodotto_trattamento, only: [:show, :edit, :update, :destroy]
-
+skip_before_action :verify_authenticity_token
   # GET /prodotto_trattamentos
   # GET /prodotto_trattamentos.json
   def index

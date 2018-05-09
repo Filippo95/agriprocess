@@ -1,6 +1,6 @@
 class ProdottosOperazionesController < ApplicationController
   before_action :set_prodottos_operazione, only: [:show, :edit, :update, :destroy]
-
+skip_before_action :verify_authenticity_token
   # GET /prodottos_operaziones
   # GET /prodottos_operaziones.json
   def index
