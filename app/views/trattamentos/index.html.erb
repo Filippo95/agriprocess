@@ -1,6 +1,6 @@
 
-<script src="libs/jspdf.debug.js"></script>
-<script src="libs/jspdf.plugin.autotable.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.4/jspdf.plugin.autotable.js"></script>
 
 
 <script  type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -12,7 +12,25 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Trattamenti</h1>
+<head>
+<script>
+function PrintPDF(){
+  var columns = ["Data", "Coltura", "est.ha", "s","t","if","r","Prodotto","Avversità","Dose per Ha"];
 
+
+
+
+        var data = [
+           <%=raw @export%>
+        ];
+        var doc = new jsPDF();
+        doc.autoTable(columns, data);
+        doc.output("dataurlnewwindow");
+
+}
+
+</script>
+</head>
 <table id="table">
   <thead>
     <tr>
@@ -52,6 +70,7 @@
 <span>
 <%= link_to 'Nuovo Trattamento', new_trattamento_path ,class: "btn btn-success" %>
 <t><t>
+<a href="javascript:PrintPDF()">PDF</a>
 <button onclick="PrintPDF()" type="button" class="btn btn-info">Esporta PDF</button>
 </span>
 <script>
@@ -59,21 +78,8 @@ $(document).ready(function () {
     $('#table').DataTable();
 
 
-} );
-/*
-function PrintPDF(){
-  var columns = ["Data", "Coltura", "est.ha", "s","t","if","r","Prodotto","Avversità","Dose per Ha"];
 
 
 
-
-        var data = [
-           <%=raw @export%>
-        ];
-        var doc = new jsPDF();
-        doc.autoTable(columns, data);
-        doc.output("dataurlnewwindow");
-
-}
-*/
+});
 </script>
