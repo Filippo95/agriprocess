@@ -19,11 +19,20 @@ class TrattamentosController < ApplicationController
       http.request(req)
     }
     @export=res.body
+      respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Your_filename",
+        template: "trattamentos/pdf.html.erb",
+        layout: 'pdf.html.erb'
+      end
+   end
   end
 
   # GET /trattamentos/1
   # GET /trattamentos/1.json
   def show
+  
   end
 
   # GET /trattamentos/new

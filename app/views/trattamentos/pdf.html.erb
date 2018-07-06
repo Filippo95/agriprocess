@@ -1,0 +1,43 @@
+
+<table id="table" border="1">
+  <thead>
+    <tr>
+
+      <th>Data</th>
+      <th>Coltura</th>
+      <th>Semina</th>
+      <th>Trapianto</th>
+      
+      <th>Fioritura</th>
+      <th>Raccolta</th>
+      <th>Prodotti/dose</th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trattamentos.each do |trattamento| %>
+      <tr class="record" id="<%= trattamento.id%>">
+        
+        <td><%= trattamento.data.strftime("%d/%m/%Y")%></td>
+        <td id="coltura">
+        <%if !@colturas.where(id: trattamento.id_coltura).first.nil?%>
+        
+        <%=@colturas.where(id: trattamento.id_coltura).first.nome %>
+        <% end %>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td
+       
+        <td id="prodotti">
+         <% @prodotto_trattamentos.where(id_trattamento: trattamento.id).each do |prodotto_trattamento| %>
+           <%=@prodottos.where(id: prodotto_trattamento.id_prodotto).first.nome%>-<%=prodotto_trattamento.dose_ha%><br>
+           
+          <%end%>
+        </td>
+       <% end %>
+  </tbody>
+</table>
