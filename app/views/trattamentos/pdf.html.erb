@@ -1,4 +1,8 @@
-
+<style>
+    thead { display: table-header-group }
+tfoot { display: table-row-group }
+tr { page-break-inside: avoid }
+</style>
 <table id="table" border="1">
   <thead>
     <tr>
@@ -26,10 +30,20 @@
         <%=@colturas.where(id: trattamento.id_coltura).first.nome %>
         <% end %>
         </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+       
+        
+        <td> <%if trattamento.semina%>
+        X
+        <%end%></td>
+        <td> <%if trattamento.trapianto%>
+        X
+        <%end%></td>
+        <td> <%if trattamento.fioritura%>
+        X
+        <%end%></td>
+        <td> <%if trattamento.raccolta%>
+        X
+        <%end%></td>
         <td
        
         <td id="prodotti">
